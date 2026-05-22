@@ -1,0 +1,56 @@
+name: Spec issue
+description: Report ambiguity, error, or unclear behaviour in the Anchored Receipts specification.
+title: "[spec]: "
+labels: ["spec"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Security issues** — do NOT file here. Email security@dekimu.com (see `SECURITY.md`).
+
+        **Implementation bugs** — file in the relevant implementation repo (e.g., `dekimuhq/apr-verifier`), not here.
+
+        This template is for issues with the spec text itself, the threat model, the privacy review, the conformance vectors, or the governance.
+
+  - type: input
+    id: section
+    attributes:
+      label: Affected section
+      description: e.g. `apr/v1.md §4.1`, `acr/THREAT-MODEL.md §3.4`, `apr/conformance/test-vectors/03-missing-from-anchor/`
+      placeholder: apr/v1.md §X.Y
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What the spec says
+      description: Quote the relevant sentence(s).
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it's a problem
+      description: Ambiguous? Self-contradictory? Conflicts with a published vector? Conflicts with verifier behaviour?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed change
+      description: If you have a suggestion. Leave blank if you're surfacing the issue without a fix in mind.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - editorial (typo, unclear wording, broken link)
+        - clarification (text-only spec change that may affect verifier interpretation)
+        - additive (proposes new optional behaviour for v1.x)
+        - breaking (would require v2)
+    validations:
+      required: true
