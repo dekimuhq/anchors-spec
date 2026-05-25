@@ -74,6 +74,35 @@ A Steward may step down at any time by editing `STEWARDS.md` (once that file exi
 
 If at any point there are no active Stewards for **90 consecutive days** (no merges, no Discussion replies, no security responses), the project is considered dormant. Any prior Steward — or any contributor who has merged at least three substantive PRs — may step in as a Steward by opening a Discussion and waiting 14 days for objections. This is the explicit fallback so the spec does not die quietly if Dekimu disappears.
 
+## RFC process
+
+Substantial spec changes — new envelope fields, new cryptographic primitives, new error codes — are proposed as numbered RFCs in the [`rfcs/`](./rfcs/) directory.
+
+### Filing an RFC
+
+1. Copy [`rfcs/RFC-TEMPLATE.md`](./rfcs/RFC-TEMPLATE.md) to `rfcs/RFC-NNN-short-title.md` using the next available number.
+2. Open a PR against `dekimuhq/anchors-spec` with the RFC file.
+3. The PR enters a **30-day comment period** from the date it is opened. Stewards may shorten this to 14 days for changes with narrow scope and no objection.
+4. During the comment period, anyone may review: Contributors, Implementers, and the public.
+5. After the comment period, Stewards decide: **accept**, **request changes**, or **reject**. Lazy consensus applies (see Decision-making above).
+6. Accepted RFCs are merged. The RFC status field is updated to "Accepted" and the change is scheduled for the next envelope amendment (see Quarterly amendment cadence below).
+
+RFCs that affect only profiles or new family members do not need the RFC process — they follow the existing v1.x additive path. The RFC process is for envelope-level changes that touch the shared wire format, canonicalization, signature verification, or error-code vocabulary.
+
+### Quarterly amendment cadence
+
+Envelope amendments batch on a quarterly cycle:
+
+| Quarter | Amendment | Example scope |
+|---------|-----------|---------------|
+| Q3 2026 | v1.3 | `sig_alg` discriminator (RFC-001) |
+| Q4 2026 | v1.4 | TBD |
+| Q1 2027 | v1.5 | TBD |
+
+**Profiles and new family members ship continuously** — they are not gated by the quarterly cycle. Only envelope-level wire-format changes (new fields, new error codes, canonicalization amendments) batch quarterly.
+
+The quarterly cadence exists to give implementers a predictable upgrade rhythm. Stewards may issue out-of-cycle amendments for security-critical fixes.
+
 ## Evolution of this document
 
 This governance file evolves with the project. Material changes go through the same v1.x process described above. Editorial fixes land freely.
