@@ -1,0 +1,53 @@
+{
+  "description": "Invalid: ACR receipt where iat_ms does not match Date.parse(iat) — off by 1000ms, verifiers MUST reject with iat_ms_mismatch",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CONFORMANCE00000000006",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667201000,
+    "claim_type": "ar.consent.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "exp": null,
+    "prev": null,
+    "policy_uri": "https://example.com/privacy-policy",
+    "policy_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "policy_version": "1.0.0",
+    "kind": "decision",
+    "cause": "manual",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.dekimu.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "sEKNBO6ASM_sL5N0SLuVvmFHlFsVZK_UYXiqlOzWHYgEPxFjh4aiwvbhYDnM1Jr9g5LpGfCZFxJNpU9dgbOHCg",
+    "countersig": null,
+    "body": {
+      "kind": "ar.consent.v1",
+      "profile": "gdpr.art7",
+      "iss": "did:web:example.com",
+      "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+      "sub_commit": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "purposes": [
+        "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      ],
+      "lawful_basis": "6(1)(a)",
+      "policy_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "granted_at": "2026-05-25T00:00:00Z",
+      "prev": null,
+      "field_root": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "anchor": null,
+      "sig": "",
+      "countersig": null,
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected_error": "iat_ms_mismatch"
+}

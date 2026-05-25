@@ -1,0 +1,33 @@
+{
+  "description": "Invalid: receipt with unregistered claim_type 'ar.unknown.v1' — verifiers MUST reject with schema_invalid:claim_type",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CONFORMANCE00000000005",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.unknown.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "urn:example:unknown",
+    "exp": null,
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.dekimu.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "4zmhOU5uZLSvWYYf_rKStXzidAgUnaUaarZAMIQEMrTE962s2-nIm6GdBrPzl3T10tmzHySjDSJqW9i5IlfJAQ",
+    "countersig": null,
+    "body": {}
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected_error": "claim_type_unknown"
+}

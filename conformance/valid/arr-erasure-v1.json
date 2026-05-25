@@ -1,0 +1,67 @@
+{
+  "description": "Valid ARR ar.erasure.v1 receipt — v=2 envelope, Ed25519 signed, GDPR Art. 17 erasure, decision/erasure_request",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CONFORMANCE00000000003",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.erasure.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "exp": null,
+    "prev": null,
+    "policy_uri": "https://example.com/retention-policy",
+    "policy_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "policy_version": "2.0.0",
+    "kind": "decision",
+    "cause": "erasure_request",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.dekimu.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "TOx2KzbLJqj2lDWjNWz5ENdL-7YcHv4MsYF8OwRZzxWhH0kVjgYTfunAzprgXuLD4AKlOVzNO8Tk0Ej2MOXgAA",
+    "countersig": null,
+    "body": {
+      "kind": "ar.erasure.v1",
+      "profile": "gdpr.art17",
+      "iss": "did:web:example.com",
+      "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+      "target_kind": "subject",
+      "target_commit": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "salt_epoch": "2026-01-01",
+      "policy_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "policy_uri": "https://example.com/retention-policy",
+      "policy_version": "2.0.0",
+      "trigger": "subject_request",
+      "trigger_receipt": null,
+      "event_at": "2026-05-25T00:00:00Z",
+      "granted_at": "2026-05-25T00:00:00Z",
+      "effective_until": null,
+      "state_snapshot": {
+        "retention_status": "erased",
+        "current_policy_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "hold_active": false,
+        "hold_reason_commit": null,
+        "anonymized": false,
+        "archived": false
+      },
+      "prev": null,
+      "field_root": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "anchor": null,
+      "sig": null,
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected_result": {
+    "signature": "valid",
+    "claim_type": "ar.erasure.v1"
+  }
+}

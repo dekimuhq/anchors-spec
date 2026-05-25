@@ -1,0 +1,54 @@
+{
+  "description": "Invalid: valid APR receipt with one bit flipped in the Ed25519 signature — verifiers MUST reject",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CONFORMANCE00000000004",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.provenance.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "urn:example:artifact:tampered",
+    "exp": null,
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "kind": "observation",
+    "cause": "api",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.dekimu.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "DGN5sf8A-XPCUjgJBlZmIrf2mPNTGHWKdRJPMUM7_guSym-3en9a40rqEJHqe5jVgrCccuKuVk0ZI2ZLzvrADw",
+    "countersig": null,
+    "body": {
+      "artifact": {
+        "type": "commander.run.output",
+        "id": "art-tampered",
+        "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "hashAlgorithm": "sha256"
+      },
+      "agent": {
+        "kind": "ai",
+        "model": "claude-4",
+        "provider": "anthropic"
+      },
+      "authorization": {
+        "principalId": "user-001"
+      },
+      "startedAt": 1779667140,
+      "completedAt": 1779667200,
+      "disclosure": "public_full",
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected_error": "sig_invalid"
+}

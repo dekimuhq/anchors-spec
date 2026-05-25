@@ -1,0 +1,56 @@
+{
+  "description": "Valid ACR ar.consent.v1 receipt — v=2 envelope, Ed25519 signed, GDPR Art. 7 profile, decision/manual",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CONFORMANCE00000000002",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.consent.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "exp": null,
+    "prev": null,
+    "policy_uri": "https://example.com/privacy-policy",
+    "policy_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "policy_version": "1.0.0",
+    "kind": "decision",
+    "cause": "manual",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.dekimu.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "CRcM4rpdMKMaU3F3eooNxMWDzfrF_gkZdl4ERC6-dmzyt2hoB1Gd0cL8kgBKgSeHt2LmraieYOHExOuJPCvwDw",
+    "countersig": null,
+    "body": {
+      "kind": "ar.consent.v1",
+      "profile": "gdpr.art7",
+      "iss": "did:web:example.com",
+      "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+      "sub_commit": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "purposes": [
+        "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      ],
+      "lawful_basis": "6(1)(a)",
+      "policy_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "granted_at": "2026-05-25T00:00:00Z",
+      "prev": null,
+      "field_root": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "anchor": null,
+      "sig": "",
+      "countersig": null,
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected_result": {
+    "signature": "valid",
+    "claim_type": "ar.consent.v1"
+  }
+}

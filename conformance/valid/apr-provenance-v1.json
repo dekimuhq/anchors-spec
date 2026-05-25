@@ -1,0 +1,57 @@
+{
+  "description": "Valid APR ar.provenance.v1 receipt — v=2 envelope, Ed25519 signed, observation/api, public_full disclosure",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CONFORMANCE00000000001",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.provenance.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "urn:example:artifact:001",
+    "exp": null,
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "kind": "observation",
+    "cause": "api",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.dekimu.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "Foi0wONzTwZvdZEBM19VsCg921aq0vr3skjsI8iErHjOOU2z6W8NhPT4per2RY21krIgmsNU4mzqh3GxtVVPAQ",
+    "countersig": null,
+    "body": {
+      "artifact": {
+        "type": "commander.run.output",
+        "id": "art-001",
+        "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "hashAlgorithm": "sha256"
+      },
+      "agent": {
+        "kind": "ai",
+        "model": "claude-4",
+        "provider": "anthropic"
+      },
+      "authorization": {
+        "principalId": "user-001"
+      },
+      "startedAt": 1779667140,
+      "completedAt": 1779667200,
+      "disclosure": "public_full",
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected_result": {
+    "signature": "valid",
+    "claim_type": "ar.provenance.v1"
+  }
+}
