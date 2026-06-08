@@ -1,0 +1,38 @@
+# Anchored Receipts — Specification
+
+> A standards-track family of 14 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events. Each receipt is independently verifiable — anyone can confirm what happened, when, and against which version, without trusting the issuer. Spec is CC0 1.0 (public domain); reference implementations are Apache 2.0. Maintained by Dekimu (github.com/dekimuhq).
+
+## Start here
+
+- [README](https://github.com/dekimuhq/anchors-spec/blob/main/README.md): Family overview, the 14 members, wire-format rules, governance.
+- [Envelope](https://github.com/dekimuhq/anchors-spec/blob/main/envelope/): Shared wire format (v1 + v2) every member receipt is wrapped in.
+- [Registry](https://github.com/dekimuhq/anchors-spec/blob/main/registry.md): Canonical `claim_type` discriminator registry.
+- [Family consistency](https://github.com/dekimuhq/anchors-spec/blob/main/family-consistency.md): Cross-family invariants — chip assignments, TSA upgrade paths, subject presence, package versions.
+
+## Family members
+
+- [APR — Agent Provenance Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/apr/v1.md): `ar.provenance.v1` — what an agent or system produced, when, and from which inputs.
+- [ACR — Anchored Consent Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/acr/): `ar.consent.v1` / `ar.withdrawal.v1` / `ar.modification.v1` — consent granted, withdrawn, or modified.
+- [ARR — Anchored Retention Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/arr/): erasure, expiry, hold, anonymization, archive, batch.
+- [ALR — Anchored Lineage Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/alr/): `ar.lineage.v1` — data-flow lineage between systems.
+- [ANR — Anchored Notice Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/anr/): `ar.notice.v1`.
+- [ASR — Anchored Subject-Rights Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/asr/): `ar.subject_rights.v1` — GDPR data-subject request handling.
+- [ABR — Anchored Breach Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/abr/): `ar.breach.v1`.
+- [AIR — Anchored Impact Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/air/): `ar.impact.v1` — DPIA / impact assessments.
+- [ATR — Anchored Transfer Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/atr/): `ar.transfer.v1` — cross-border / third-party data transfers.
+- [APuR — Anchored Purpose Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/apur/): `ar.purpose.v1`.
+- [AER — Anchored Evaluation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/aer/): `ar.evaluation.v1` — AI model / output evaluations.
+- [AAR — Anchored Attestation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/aar/): `ar.attestation.v1`.
+- [ADR — Anchored Delegation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/adr/): `ar.delegation.v1`.
+- [ATokR — Anchored Tokenization Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/atokr/): `ar.tokenization.v1`.
+
+## Conventions
+
+- Wire format is canonical `ar.<noun>.v<N>` (e.g. `ar.provenance.v1`). The `ar.` namespace identifies the family; acronyms (APR, ACR, …) are documentation shorthand.
+- New fields are additive and optional. Breaking changes require a new `v<N+1>` discriminator.
+
+## Governance
+
+- [Governance](https://github.com/dekimuhq/anchors-spec/blob/main/GOVERNANCE.md)
+- [Contributing](https://github.com/dekimuhq/anchors-spec/blob/main/CONTRIBUTING.md)
+- [Security policy](https://github.com/dekimuhq/anchors-spec/blob/main/SECURITY.md)
