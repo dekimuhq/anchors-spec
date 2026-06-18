@@ -1,6 +1,6 @@
 # Anchored Receipts — Specification
 
-Specification documents for the **Anchored Receipts** protocol family: 14 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events.
+Specification documents for the **Anchored Receipts** protocol family: 15 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, compliance, and autonomous-action events.
 
 **Spec licence:** CC0 1.0 Universal (public domain). Use it, fork it, embed it.
 **Reference implementations:** Apache 2.0, under [`dekimuhq`](https://github.com/dekimuhq) on GitHub.
@@ -23,6 +23,7 @@ Specification documents for the **Anchored Receipts** protocol family: 14 signed
 | AAR | `ar.attestation.v1` | Anchored Attestation Receipts | [Placeholder](aar/) |
 | ADR | `ar.delegation.v1` | Anchored Delegation Receipts | [Placeholder](adr/) |
 | ATokR | `ar.tokenization.v1` | Anchored Tokenization Receipts | [Placeholder](atokr/) |
+| AActR | `ar.action.v1` | Anchored Action Receipts | [Full spec](action/v1.md) |
 
 ## Cross-Family Documents
 
