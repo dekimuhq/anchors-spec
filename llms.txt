@@ -1,10 +1,10 @@
 # Anchored Receipts — Specification
 
-> A standards-track family of 14 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events. Each receipt is independently verifiable — anyone can confirm what happened, when, and against which version, without trusting the issuer. Spec is CC0 1.0 (public domain); reference implementations are Apache 2.0. Maintained by Dekimu (github.com/dekimuhq).
+> A standards-track family of 15 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, compliance, and autonomous-action events. Each receipt is independently verifiable — anyone can confirm what happened, when, and against which version, without trusting the issuer. Spec is CC0 1.0 (public domain); reference implementations are Apache 2.0. Maintained by Dekimu (github.com/dekimuhq).
 
 ## Start here
 
-- [README](https://github.com/dekimuhq/anchors-spec/blob/main/README.md): Family overview, the 14 members, wire-format rules, governance.
+- [README](https://github.com/dekimuhq/anchors-spec/blob/main/README.md): Family overview, the 15 members, wire-format rules, governance.
 - [Envelope](https://github.com/dekimuhq/anchors-spec/blob/main/envelope/): Shared wire format (v1 + v2) every member receipt is wrapped in.
 - [Registry](https://github.com/dekimuhq/anchors-spec/blob/main/registry.md): Canonical `claim_type` discriminator registry.
 - [Family consistency](https://github.com/dekimuhq/anchors-spec/blob/main/family-consistency.md): Cross-family invariants — chip assignments, TSA upgrade paths, subject presence, package versions.
@@ -25,6 +25,7 @@
 - [AAR — Anchored Attestation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/aar/): `ar.attestation.v1`.
 - [ADR — Anchored Delegation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/adr/): `ar.delegation.v1`.
 - [ATokR — Anchored Tokenization Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/atokr/): `ar.tokenization.v1`.
+- [AActR — Anchored Action Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/action/v1.md): `ar.action.v1` — an autonomous action an agent/automation executed on a workspace's behalf, optionally bound to the authorizing agent credential.
 
 ## Conventions
 

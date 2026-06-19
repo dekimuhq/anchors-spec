@@ -30,6 +30,7 @@ Canonical chip ordering. Each chip represents one family member's filter on the 
 | 12 | ASR | `ar.subject_rights.v1` | shipped | 9 event types under 6 regulatory profiles (GDPR Arts. 15/16/17/18/20/21); first family minted via factory-from-day-1 through `defineFamily()` |
 | 13 | AIR | `ar.impact.v1` | shipped | 11 wire event types (9 logical + terminal trio) under 5 regulatory profiles (GDPR Art. 35(3)(a-c), Art. 35(4) DPA-list, voluntary); RECOMMENDED-TSA matrix on 3 deadline-bearing events (completed, prior_consultation_initiated, prior_consultation_resolved) — no MANDATORY-TSA event in v1; per-event subject carve-out on `dpia.stakeholders_consulted` (D10-AIR-6) |
 | 14 | ATokR | `ar.tokenization.v1` | locked (2026-05-21) | 4 event types (`token.issued`, `token.redeemed`, `token.revoked`, `token.rotated`); PII-free — salted commit only; scope-binding (audience + purpose + validity); format_class discriminator (`pan`, `email`, `iban`, `phone`, `freeform`). Decision: 2026-05-20-atokr-anchored-tokenization-receipts.md |
+| 15 | AActR | `ar.action.v1` | shipped | Autonomous Hub-automation action receipt. Single-shape, null-subject (workspace-level); 1 profile (`hub.automation`); plaintext `verb`/`rule_id`/`recipe_id`/`outcome`/`executed_at` + 3 salted target commits (`decision_commit`/`params_commit`/`request_id_commit`); OPTIONAL mandate binding (`credential_id` + `caveats_consumed`, plus `delegation_chain` for sub-agent delegation paths); Status-List non-consumer; TSA OPTIONAL. Spec: [action/v1.md](action/v1.md) |
 
 > **Audit fix H4 (2026-05-17):** ANR/ABR/ASR/AIR specs had previously claimed chip positions 6/7/8/9, which collided with AER (positions 4–9 unassigned). This table replaces all per-spec chip-position claims. Member specs SHOULD NOT redeclare chip position; they reference this table instead.
 
@@ -78,6 +79,7 @@ Per-event TSA (eIDAS RFC 3161 trusted timestamp) requirement. The v1.1 envelope 
 | AIR | `body.event_type: prior_consultation_resolved` | RECOMMENDED | DPA-advice receipt clock |
 | AIR | other events | OPTIONAL | |
 | ATokR | (any) | OPTIONAL | No regulatory clock starts on a tokenization event in current EU regimes. Re-evaluate if EUDI Wallet ARF or NIS2 sectoral acts impose tokenization deadlines. |
+| AActR | (any) | OPTIONAL | No regulatory clock starts on an autonomous action; trusted timestamp is opt-in (rationale as APR/ADR). |
 
 > **Audit fix H7 (2026-05-17):** prior to this table, TSA mandate language varied across closure specs (ABR mandated on `breach.detected`, ASR recommended on `request.received`, AIR recommended on `dpia.completed` — without a principled rule). This table applies a single rule (regulatory-clock-start ⇒ MANDATORY; deadline-checks ⇒ RECOMMENDED; else OPTIONAL). Member specs reference this table; per-spec mandate language MUST match.
 
@@ -110,6 +112,7 @@ Each family member declares whether the `subject` envelope field is `null`, popu
 | ASR | (every event) | `"sha256:<hex>"` (MANDATORY per D10-ASR-5) | Every event is subject-scoped |
 | AIR | (every event) | `null` (DPIA is processing-activity-level) | EXCEPT `body.event_type: stakeholders_consulted` where representative-org commit MAY appear |
 | ATokR | (every event) | `"sha256:<hex>"` (salted commit of the tokenized plaintext) | Every tokenization event is subject-scoped — the receipt anchors the surrogate↔plaintext mapping proof |
+| AActR | (any) | `null` (MUST be null) | Workspace/activity-level; the action's target is a body commit (`decision_commit`/`params_commit`), never the envelope subject |
 
 > **Audit fix H10 (2026-05-17):** consolidates subject-presence rules. Member-spec D10 deltas SHOULD reference this table rather than re-declaring rules. Subject-parity invariants between specs (e.g. ASR↔ARR Art. 17) cross-check this table's salted-commit form (`"sha256:<hex>"`).
 
@@ -136,6 +139,8 @@ W3C Status List 2021 was introduced in v1.1 hardening (§8). Each family member 
 | 13 | ATokR | v1.0 of ATokR | `token.revoked` flips bit; `token.rotated` flips predecessor bit |
 
 APR currently does NOT consume Status List 2021 (provenance receipts are typically not revocable; immutability is part of their value). Adding APR to Status List 2021 would require a v1.1 APR amendment.
+
+AActR (`ar.action.v1`) likewise does NOT consume Status List 2021 (`status_list_slot: null`): an autonomous action is a non-revocable event that *happened* — there is no suspension/revocation surface in v1. Same posture as APR.
 
 > **Audit fix H5 (2026-05-17):** consolidates per-spec ordering claims that conflicted (multiple specs claimed "Nth"). This table is the canonical sequence; member specs reference it instead of declaring their own ordinal.
 
