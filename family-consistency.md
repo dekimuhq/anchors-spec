@@ -6,7 +6,7 @@
 
 **Created:** 2026-05-17 (closure consistency-audit fix-pass, addressing audit findings H4/H5/H7/H10/H11/H12 per `2026-05-17-anchors-family-consistency-audit.md`).
 
-**Maintenance rule:** Adding a new family member requires updating every table below. The tables ship to the spec template at `anchors/templates/spec-template.md` as a "consistency-checklist" snippet that new spec drafts MUST fill in.
+**Maintenance rule:** Adding a new family member requires updating every table below. These tables double as a "consistency-checklist" that every new spec draft MUST fill in.
 
 ---
 

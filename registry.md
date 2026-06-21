@@ -122,8 +122,8 @@ When adding a new `claim_type`:
 1. Author or update the spec document in `YYYY-MM-DD-<member>-anchored-<name>-receipts-design.md`.
 2. Add a row to this REGISTRY with the discriminator, purpose, spec path, packages, and status (`specced` → `shipped` on code merge).
 3. Update the shared envelope union in `@dekimuhq/anchors-envelope` to accept the new discriminator.
-4. Update `anchors/meta/CROSS-REFERENCES.md` with any chain relationships (e.g., `ar.subject_rights.v1` → `ar.erasure.v1` for Art. 17 erasure requests).
-5. Reference `anchors/templates/spec-template.md` for new spec structure.
+4. Update [`CROSS-REFERENCES.md`](CROSS-REFERENCES.md) with any chain relationships (e.g., `ar.subject_rights.v1` → `ar.erasure.v1` for Art. 17 erasure requests).
+5. Model the new spec on an existing family's `v1.md` (e.g. [`apr/v1.md`](apr/v1.md)) for structure.
 
 When adding a new **standalone attestation** (non-receipt signed artifact under `ar.<noun>.v<N>`):
 
