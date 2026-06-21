@@ -4,7 +4,7 @@
 
 **Companion to:** [`registry.md`](registry.md) (claim_type registry) + [`CROSS-REFERENCES.md`](CROSS-REFERENCES.md) (composition relationships).
 
-**Created:** 2026-05-17 (closure consistency-audit fix-pass, addressing audit findings H4/H5/H7/H10/H11/H12 per `Dekimu Labs/docs/qa/2026-05-17-anchors-family-consistency-audit.md`).
+**Created:** 2026-05-17 (closure consistency-audit fix-pass, addressing audit findings H4/H5/H7/H10/H11/H12 per `2026-05-17-anchors-family-consistency-audit.md`).
 
 **Maintenance rule:** Adding a new family member requires updating every table below. The tables ship to the spec template at `anchors/templates/spec-template.md` as a "consistency-checklist" snippet that new spec drafts MUST fill in.
 
@@ -286,7 +286,7 @@ Family-wide. No `family` slug — one signed list governs trust dispatch for eve
 |---|---|
 | Discriminator | `kind: "ar.trusted_issuers.v1"` |
 | Body shape | `{ issuers: TrustedIssuerRecord[], generated_at, sequence, prev_root \| null }` (sequence + prev_root form an append-only hash chain) |
-| Signing key | Pinned `BOOTSTRAP_PUBLISHER_KEY` (Dekimu Labs SL family key in v1); 1-year rotation with 90-day overlap (Q5 decision) |
+| Signing key | Pinned `BOOTSTRAP_PUBLISHER_KEY` (Dekimu family key in v1); 1-year rotation with 90-day overlap (Q5 decision) |
 | Cadence | Monthly cron re-sign + republish if no manual update in 30 days (`dekimuhq/anchors-trusted-issuers-chain` action) |
 | Consumed by | `verifyIssuerKey` (§5 row 2) via the default `TrustedIssuersSource` implementation |
 
@@ -333,13 +333,13 @@ The anchors family's `public_full` vs `committed` payload modes (envelope v1.1 �
 
 **Implication for reviewers:** the family is structurally a stateless, format-flexible tokenization system in the PCI sense — vaultless (no central token table), irreversibility via cryptographic commit rather than mapping-table lookup, with scope-binding enforced verifier-side rather than vault-side. The 14-member family extends the pattern from "PAN ↔ token" to "GDPR/EU-AI-Act/eIDAS event ↔ verifiable receipt."
 
-**Not a new normative rule.** No member spec is required to update behaviour because of this section. The mapping is documentation only — added 2026-05-20 after a literature-review pass mapped the anchors design space onto PCI tokenization vocabulary (see `Dekimu Labs/docs/decisions/2026-05-20-atokr-anchored-tokenization-receipts.md`). **ATokR (14th member, LOCKED 2026-05-21)** is the family member that directly instantiates this vocabulary mapping — its 4 event types (`token.issued/redeemed/revoked/rotated`) are the receipt-level counterparts of the HVT/LVT lifecycle described here.
+**Not a new normative rule.** No member spec is required to update behaviour because of this section. The mapping is documentation only — added 2026-05-20 after a literature-review pass mapped the anchors design space onto PCI tokenization vocabulary (see `2026-05-20-atokr-anchored-tokenization-receipts.md`). **ATokR (14th member, LOCKED 2026-05-21)** is the family member that directly instantiates this vocabulary mapping — its 4 event types (`token.issued/redeemed/revoked/rotated`) are the receipt-level counterparts of the HVT/LVT lifecycle described here.
 
 ---
 
 ## 10. Countersignature key field (`countersig_key`)
 
-Added in envelope 0.13.0 (2026-05-21). Decision: `Dekimu Labs/docs/decisions/2026-05-21-countersig-key-envelope-delta.md`.
+Added in envelope 0.13.0 (2026-05-21). Decision: `2026-05-21-countersig-key-envelope-delta.md`.
 
 **Cross-family invariants:**
 
