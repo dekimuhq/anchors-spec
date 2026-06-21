@@ -31,6 +31,11 @@ Canonical chip ordering. Each chip represents one family member's filter on the 
 | 13 | AIR | `ar.impact.v1` | shipped | 11 wire event types (9 logical + terminal trio) under 5 regulatory profiles (GDPR Art. 35(3)(a-c), Art. 35(4) DPA-list, voluntary); RECOMMENDED-TSA matrix on 3 deadline-bearing events (completed, prior_consultation_initiated, prior_consultation_resolved) — no MANDATORY-TSA event in v1; per-event subject carve-out on `dpia.stakeholders_consulted` (D10-AIR-6) |
 | 14 | ATokR | `ar.tokenization.v1` | locked (2026-05-21) | 4 event types (`token.issued`, `token.redeemed`, `token.revoked`, `token.rotated`); PII-free — salted commit only; scope-binding (audience + purpose + validity); format_class discriminator (`pan`, `email`, `iban`, `phone`, `freeform`). Decision: 2026-05-20-atokr-anchored-tokenization-receipts.md |
 | 15 | AActR | `ar.action.v1` | shipped | Autonomous Hub-automation action receipt. Single-shape, null-subject (workspace-level); 1 profile (`hub.automation`); plaintext `verb`/`rule_id`/`recipe_id`/`outcome`/`executed_at` + 3 salted target commits (`decision_commit`/`params_commit`/`request_id_commit`); OPTIONAL mandate binding (`credential_id` + `caveats_consumed`, plus `delegation_chain` for sub-agent delegation paths); Status-List non-consumer; TSA OPTIONAL. Spec: [action/v1.md](action/v1.md) |
+| 16 | AQR | `ar.quality.v1` | shipped | Anchored Quality Receipts — output/version eval provenance (provenance not truth). 2 profiles (`quality.output`, `quality.release`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AER (`ar.evaluation.v1`). Spec: [quality/v1.md](quality/v1.md) |
+| 17 | AGR | `ar.guard.v1` | shipped | Anchored Guard Verdicts — deterministic prompt-injection/input-screening verdict (provenance of screening, NOT a safety guarantee). Verdict pass/flagged/blocked; golden-pinned `ruleset_hash`; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. Spec: [guard/v1.md](guard/v1.md) |
+| 18 | AGrR | `ar.grounding.v1` | shipped | Anchored Grounding Receipts — RAG citation-binding + grounding-support provenance (binding authoritative, score advisory; provenance not truth). null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. Spec: [grounding/v1.md](grounding/v1.md) |
+| 19 | AgTR | `ar.trace.v1` | shipped | Anchored Agent-Trace Receipts — per-run execution provenance (provenance not behavior). 1 profile (`agent.trace`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AActR (single action vs whole run). Spec: [trace/v1.md](trace/v1.md) |
+| 20 | APIIR | `ar.redaction.v1` | shipped | Anchored PII-Redaction Receipts — proves which PII-redaction pass ran before model send (provenance of redaction, NOT a PII-free guarantee). 1 profile (`redaction.prompt`); per-category counts + dual salted commits + `ruleset_hash`; reversible map+salt controller-only, never anchored; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from ATokR and `ar.anonymization.v1`. Spec: [redaction/v1.md](redaction/v1.md) |
 
 > **Audit fix H4 (2026-05-17):** ANR/ABR/ASR/AIR specs had previously claimed chip positions 6/7/8/9, which collided with AER (positions 4–9 unassigned). This table replaces all per-spec chip-position claims. Member specs SHOULD NOT redeclare chip position; they reference this table instead.
 
@@ -80,6 +85,11 @@ Per-event TSA (eIDAS RFC 3161 trusted timestamp) requirement. The v1.1 envelope 
 | AIR | other events | OPTIONAL | |
 | ATokR | (any) | OPTIONAL | No regulatory clock starts on a tokenization event in current EU regimes. Re-evaluate if EUDI Wallet ARF or NIS2 sectoral acts impose tokenization deadlines. |
 | AActR | (any) | OPTIONAL | No regulatory clock starts on an autonomous action; trusted timestamp is opt-in (rationale as APR/ADR). |
+| AQR | (any) | OPTIONAL | No regulatory clock starts on a quality eval; trusted timestamp is opt-in. |
+| AGR | (any) | OPTIONAL | No regulatory clock starts on a guard verdict; trusted timestamp is opt-in. |
+| AGrR | (any) | OPTIONAL | No regulatory clock starts on a grounding receipt; trusted timestamp is opt-in. |
+| AgTR | (any) | OPTIONAL | No regulatory clock starts on an agent-trace event; trusted timestamp is opt-in. |
+| APIIR | (any) | OPTIONAL | No regulatory clock starts on a redaction pass; trusted timestamp is opt-in. |
 
 > **Audit fix H7 (2026-05-17):** prior to this table, TSA mandate language varied across closure specs (ABR mandated on `breach.detected`, ASR recommended on `request.received`, AIR recommended on `dpia.completed` — without a principled rule). This table applies a single rule (regulatory-clock-start ⇒ MANDATORY; deadline-checks ⇒ RECOMMENDED; else OPTIONAL). Member specs reference this table; per-spec mandate language MUST match.
 
@@ -113,6 +123,11 @@ Each family member declares whether the `subject` envelope field is `null`, popu
 | AIR | (every event) | `null` (DPIA is processing-activity-level) | EXCEPT `body.event_type: stakeholders_consulted` where representative-org commit MAY appear |
 | ATokR | (every event) | `"sha256:<hex>"` (salted commit of the tokenized plaintext) | Every tokenization event is subject-scoped — the receipt anchors the surrogate↔plaintext mapping proof |
 | AActR | (any) | `null` (MUST be null) | Workspace/activity-level; the action's target is a body commit (`decision_commit`/`params_commit`), never the envelope subject |
+| AQR | (every receipt) | `null` (must-be-null) | Quality eval is about a model/output, not a data subject |
+| AGR | (every receipt) | `null` (must-be-null) | Guard verdict is about a prompt/input, not a data subject |
+| AGrR | (every receipt) | `null` (must-be-null) | Grounding receipt is about a RAG answer + sources, not a data subject |
+| AgTR | (every receipt) | `null` (must-be-null) | Agent-trace is about an execution run, not a data subject |
+| APIIR | (every receipt) | `null` (must-be-null) | Redaction is about a prompt/content blob, not a data subject; the redacted content is bound via salted body commits, never the envelope subject |
 
 > **Audit fix H10 (2026-05-17):** consolidates subject-presence rules. Member-spec D10 deltas SHOULD reference this table rather than re-declaring rules. Subject-parity invariants between specs (e.g. ASR↔ARR Art. 17) cross-check this table's salted-commit form (`"sha256:<hex>"`).
 
@@ -141,6 +156,16 @@ W3C Status List 2021 was introduced in v1.1 hardening (§8). Each family member 
 APR currently does NOT consume Status List 2021 (provenance receipts are typically not revocable; immutability is part of their value). Adding APR to Status List 2021 would require a v1.1 APR amendment.
 
 AActR (`ar.action.v1`) likewise does NOT consume Status List 2021 (`status_list_slot: null`): an autonomous action is a non-revocable event that *happened* — there is no suspension/revocation surface in v1. Same posture as APR.
+
+AQR also does NOT consume Status List 2021 (`status_list_slot: null`) — an eval is a point-in-time fact; supersede with a newer receipt, never revoke.
+
+AGR also does NOT consume Status List 2021 (`status_list_slot: null`) — a guard verdict is a point-in-time screening decision; supersede with a newer receipt, never revoke.
+
+AGrR also does NOT consume Status List 2021 (`status_list_slot: null`) — a grounding receipt is a point-in-time binding+scoring fact about one answer; supersede with a newer receipt, never revoke.
+
+AgTR also does NOT consume Status List 2021 (`status_list_slot: null`) — an agent-trace is a point-in-time execution record; supersede with a newer receipt, never revoke.
+
+APIIR also does NOT consume Status List 2021 (`status_list_slot: null`) — a redaction receipt is a point-in-time provenance fact; supersede with a newer receipt, never revoke.
 
 > **Audit fix H5 (2026-05-17):** consolidates per-spec ordering claims that conflicted (multiple specs claimed "Nth"). This table is the canonical sequence; member specs reference it instead of declaring their own ordinal.
 
