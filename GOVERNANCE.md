@@ -17,7 +17,7 @@ A small group with merge rights on `dekimuhq/anchors-spec`. Today this is **Deki
 - Deciding when v1.x clarifications, v1.x additive features, or a future v2 ship.
 - Liaising on security disclosures (see `SECURITY.md`).
 
-The role is named, not anonymous. Current Stewards are listed in [`STEWARDS.md`](./STEWARDS.md) once that file exists; before then, all Steward actions are taken under the Dekimu brand.
+The role is named, not anonymous. Current Stewards will be listed in a `STEWARDS.md` once that file exists; before then, all Steward actions are taken under the Dekimu brand.
 
 ### Contributors
 

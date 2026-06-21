@@ -14,7 +14,7 @@ Contributions that fall outside this scope (large rewrites, framework-specific i
 
 v1 of the spec is **frozen**. Concretely:
 
-- v1.x is **additive only**. New optional fields, new test vectors, new prose clarifications, new threat-model entries — yes. Renaming a field, changing canonicalisation, narrowing an enum — no. See [`CHANGELOG.md`](./CHANGELOG.md) for the full versioning policy.
+- v1.x is **additive only**. New optional fields, new test vectors, new prose clarifications, new threat-model entries — yes. Renaming a field, changing canonicalisation, narrowing an enum — no. This additive-only rule is the full versioning policy; each family's own `CHANGELOG.md` records its release history.
 - Anything that breaks byte-equality of canonicalisation over previously-valid receipts is, by definition, v2.
 
 If your change might be breaking, open a Discussions thread before you open a PR.
