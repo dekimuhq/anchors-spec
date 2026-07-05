@@ -1,11 +1,13 @@
 # Anchored Receipts — Specification
 
-Specification documents for the **Anchored Receipts** protocol family: 15 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, compliance, and autonomous-action events.
+Specification documents for the **Anchored Receipts** protocol family: **14 locked core** signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events, plus a growing set of **agent-era** receipt types (action, quality, guard, grounding, trace, redaction).
 
 **Spec licence:** CC0 1.0 Universal (public domain). Use it, fork it, embed it.
 **Reference implementations:** Apache 2.0, under [`dekimuhq`](https://github.com/dekimuhq) on GitHub.
 
 ## Family Members
+
+### Locked core families (14)
 
 | Acronym | Wire type | Name | Spec status |
 |---------|-----------|------|-------------|
@@ -23,7 +25,19 @@ Specification documents for the **Anchored Receipts** protocol family: 15 signed
 | AAR | `ar.attestation.v1` | Anchored Attestation Receipts | [Placeholder](aar/) |
 | ADR | `ar.delegation.v1` | Anchored Delegation Receipts | [Placeholder](adr/) |
 | ATokR | `ar.tokenization.v1` | Anchored Tokenization Receipts | [Placeholder](atokr/) |
+
+### Agent-era receipt types
+
+Receipt formats for autonomous-agent and AI-pipeline events. They share the same `ar.<noun>.v<N>` wire form and envelope as the locked core.
+
+| Acronym | Wire type | Name | Spec status |
+|---------|-----------|------|-------------|
 | AActR | `ar.action.v1` | Anchored Action Receipts | [Full spec](action/v1.md) |
+| AQR | `ar.quality.v1` | Anchored Quality Receipts | [Full spec](quality/v1.md) |
+| AGR | `ar.guard.v1` | Anchored Guard Verdicts | [Full spec](guard/v1.md) |
+| AGrR | `ar.grounding.v1` | Anchored Grounding Receipts | [Full spec](grounding/v1.md) |
+| AgTR | `ar.trace.v1` / `ar.trace.v2` | Anchored Agent-Trace Receipts | [Full spec](trace/v1.md) |
+| APIIR | `ar.redaction.v1` | Anchored PII-Redaction Receipts | [Full spec](redaction/v1.md) |
 
 ## Cross-Family Documents
 
