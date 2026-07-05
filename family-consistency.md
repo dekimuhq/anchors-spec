@@ -23,13 +23,13 @@ Canonical chip ordering. Each chip represents one family member's filter on the 
 | 5 | ATR | `ar.transfer.v1` | shipped | 4 event types (arrangement, transfer, tia, suspension); 8 profiles; per-event subject split; transfer validity computation §7.2 |
 | 6 | APuR | `ar.purpose.v1` | shipped | 3 event types (binding, repurpose, unbinding); 4 regulatory profiles |
 | 7 | AER | `ar.evaluation.v1` | shipped | 2 event types (conformity + transparency), 9 profiles |
-| 8 | AAR | `ar.attestation.v1` | specced | |
-| 9 | ALR | `ar.lineage.v1` | specced | |
-| 10 | ANR | `ar.notice.v1` | specced (closure wave 1) | |
+| 8 | AAR | `ar.attestation.v1` | shipped | 2 event types (issuance, revocation); eIDAS qualified-trust-service attestations; QTS issuance carries MANDATORY-TSA |
+| 9 | ALR | `ar.lineage.v1` | shipped | 4 event types (derived, forked, superseded, disclosed); dataset-level lineage; Status List 2021 reference consumer |
+| 10 | ANR | `ar.notice.v1` | shipped | 6 event types; transparency-notice presentation; the AI Act Art. 50 transparency profile carries MANDATORY-TSA + QTS OID |
 | 11 | ABR | `ar.breach.v1` | shipped | 8 event types under 5 regulatory profiles (GDPR Art. 33/34, NIS2 Art. 23, DORA Art. 19, US-AG) |
 | 12 | ASR | `ar.subject_rights.v1` | shipped | 9 event types under 6 regulatory profiles (GDPR Arts. 15/16/17/18/20/21); first family minted via factory-from-day-1 through `defineFamily()` |
 | 13 | AIR | `ar.impact.v1` | shipped | 11 wire event types (9 logical + terminal trio) under 5 regulatory profiles (GDPR Art. 35(3)(a-c), Art. 35(4) DPA-list, voluntary); RECOMMENDED-TSA matrix on 3 deadline-bearing events (completed, prior_consultation_initiated, prior_consultation_resolved) — no MANDATORY-TSA event in v1; per-event subject carve-out on `dpia.stakeholders_consulted` (D10-AIR-6) |
-| 14 | ATokR | `ar.tokenization.v1` | locked (2026-05-21) | 4 event types (`token.issued`, `token.redeemed`, `token.revoked`, `token.rotated`); PII-free — salted commit only; scope-binding (audience + purpose + validity); format_class discriminator (`pan`, `email`, `iban`, `phone`, `freeform`). Decision: 2026-05-20-atokr-anchored-tokenization-receipts.md |
+| 14 | ATokR | `ar.tokenization.v1` | shipped | 4 event types (`token.issued`, `token.redeemed`, `token.revoked`, `token.rotated`); PII-free — salted commit only; scope-binding (audience + purpose + validity); format_class discriminator (`pan`, `email`, `iban`, `phone`, `freeform`). Decision: 2026-05-20-atokr-anchored-tokenization-receipts.md |
 | 15 | AActR | `ar.action.v1` | shipped | Autonomous Hub-automation action receipt. Single-shape, null-subject (workspace-level); 1 profile (`hub.automation`); plaintext `verb`/`rule_id`/`recipe_id`/`outcome`/`executed_at` + 3 salted target commits (`decision_commit`/`params_commit`/`request_id_commit`); OPTIONAL mandate binding (`credential_id` + `caveats_consumed`, plus `delegation_chain` for sub-agent delegation paths); Status-List non-consumer; TSA OPTIONAL. Spec: [action/v1.md](action/v1.md) |
 | 16 | AQR | `ar.quality.v1` | shipped | Anchored Quality Receipts — output/version eval provenance (provenance not truth). 2 profiles (`quality.output`, `quality.release`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AER (`ar.evaluation.v1`). Spec: [quality/v1.md](quality/v1.md) |
 | 17 | AGR | `ar.guard.v1` | shipped | Anchored Guard Verdicts — deterministic prompt-injection/input-screening verdict (provenance of screening, NOT a safety guarantee). Verdict pass/flagged/blocked; golden-pinned `ruleset_hash`; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. Spec: [guard/v1.md](guard/v1.md) |
@@ -75,13 +75,13 @@ Per-event TSA (eIDAS RFC 3161 trusted timestamp) requirement. The v1.1 envelope 
 | ALR | (any) | OPTIONAL | Lineage; no regulatory clock |
 | ANR | `notice.aiact.art50_transparency` profile | MANDATORY + QTS OID `0.4.0.2023.1.1` | AI Act evidence; profile-side eIDAS QTS pinning (EUTL-listed + BTSP OID) |
 | ANR | other profiles | RECOMMENDED | Notice presentation deadlines |
-| ABR | `body.event_type: detected` | **MANDATORY** (per spec D10-ABR-2) | The 72-hour clock starts here; no exception |
+| ABR | `body.event_type: breach.detected` | **MANDATORY** (per spec D10-ABR-2) | The 72-hour clock starts here; no exception |
 | ABR | other events | RECOMMENDED | All breach-lifecycle events are deadline-sensitive |
-| ASR | `body.event_type: received` | RECOMMENDED | 30-day clock starts here; raise to MANDATORY in v1.1 if EUDI Wallet pilots demand stronger anchoring |
+| ASR | `body.event_type: request.received` | RECOMMENDED | 30-day clock starts here; raise to MANDATORY in v1.1 if EUDI Wallet pilots demand stronger anchoring |
 | ASR | other events | OPTIONAL | |
-| AIR | `body.event_type: completed` | RECOMMENDED | DPIA completion sequence vs processing-start |
-| AIR | `body.event_type: prior_consultation_initiated` | RECOMMENDED | Art. 36 clock |
-| AIR | `body.event_type: prior_consultation_resolved` | RECOMMENDED | DPA-advice receipt clock |
+| AIR | `body.event_type: dpia.completed` | RECOMMENDED | DPIA completion sequence vs processing-start |
+| AIR | `body.event_type: dpia.prior_consultation_initiated` | RECOMMENDED | Art. 36 clock |
+| AIR | `body.event_type: dpia.prior_consultation_resolved` | RECOMMENDED | DPA-advice receipt clock |
 | AIR | other events | OPTIONAL | |
 | ATokR | (any) | OPTIONAL | No regulatory clock starts on a tokenization event in current EU regimes. Re-evaluate if EUDI Wallet ARF or NIS2 sectoral acts impose tokenization deadlines. |
 | AActR | (any) | OPTIONAL | No regulatory clock starts on an autonomous action; trusted timestamp is opt-in (rationale as APR/ADR). |
@@ -205,16 +205,16 @@ Every member spec's anchor flow §7 and verifier package SHOULD reference these 
 | ATR | shipped | 173 (verifier 75 + profiles 77 + issuer-kit 21) | shipped | — |
 | APuR | shipped | 170 | shipped | — |
 | AER | shipped | 90+ | ~3.5 weeks | shipped |
-| AAR | specced | 100+ | ~4 weeks (TSL snapshot mechanism adds complexity) | post-v1.2 envelope + EUTL snapshot data |
-| ALR | specced | 99+ | ~2 weeks (smallest — already partially canonical) | post-v1.2 envelope |
-| ANR | specced (closure wave 1) | 80+ | ~4 weeks | post-v1.2 envelope |
+| AAR | shipped | 166 (verifier 76 + issuer-kit 14 + profiles 76) | shipped | shipped |
+| ALR | shipped | 155 (verifier 81 + issuer-kit 33 + profiles 41) | shipped | shipped |
+| ANR | shipped | 268 (verifier 154 + issuer-kit 45 + profiles 69) | shipped | shipped |
 | ABR | shipped | 373 (verifier 166 + issuer-kit 104 + profiles 103) | shipped | shipped |
 | ASR | shipped | 213 (verifier 93 + issuer-kit 3 + profiles 117) | shipped | shipped |
 | AIR | shipped | 406 (verifier 192 + issuer-kit 103 + profiles 111) | shipped | shipped |
 | ATokR | shipped | 136 (verifier 56 + issuer-kit 20 + profiles 32 + integration 28) | 0.1.0 | — |
 
-**Total unimplemented (10 members):** ~34.5 weeks 1-eng-eq.
-**Family-wide test gate:** ≥250 tests beyond current 579 baseline (sum of per-spec promises exceeds gate by ~3×; suggests gate can be raised to ≥800 once all 13 ship).
+**Total unimplemented: 0 — all 14 locked core families shipped.**
+**Family-wide test gate:** ≥99 tests per family member — except APR (exempt: pre-canonical reference family with no profiles package; the ≥99 floor was set after APR shipped).
 
 > **Audit fix H2 (2026-05-17):** pre-canonical specs (ATR/APuR/AER/AAR/ADR) had no budget or test-count promise. Consolidated here. ALR weeks added.
 
@@ -269,7 +269,8 @@ Promoted from per-family `<family>.continuity.v1` (ALR / ARR / ANR) to the canon
 | APuR | `apur` | **shipped** | `@dekimuhq/apur-issuer-kit` | Re-exports from envelope/continuity. |
 | ATR | `atr` | **shipped** | `@dekimuhq/atr-issuer-kit` | Re-exports from envelope/continuity. |
 | AER | `aer` | **shipped** | `@dekimuhq/aer-issuer-kit` | Re-exports from envelope/continuity. |
-| AAR / ADR | per slug | defer to per-family spec | n/a | Default position: ship at family launch. |
+| AAR | `aar` | **shipped** | `@dekimuhq/aar-issuer-kit` | Re-exports from envelope/continuity. |
+| ADR | `adr` | **shipped** | `@dekimuhq/adr-issuer-kit` | Re-exports from envelope/continuity. |
 
 **Wire-format notes:**
 
@@ -278,7 +279,7 @@ Promoted from per-family `<family>.continuity.v1` (ALR / ARR / ANR) to the canon
 
 ### §8.2 — `ar.trusted_issuers.v1` (family-wide signed allowlist manifest)
 
-**Status:** specced for Phase B of the cross-issuer interop plan, `2026-05-19-anchors-cross-issuer-interop.md` §2. Not yet implemented. Owned by `@dekimuhq/anchors-trusted-issuers` (signing helper expected to live at `@dekimuhq/anchors-envelope/trust-manifests` for shape consistency with continuity).
+**Status:** shipped — `@dekimuhq/anchors-trusted-issuers` (Phase B of the cross-issuer interop plan). Verifier `verifyTrustedIssuersList()` (JCS + ed25519 over `{ ...doc, sig: null }`); append-only hash-chained fixtures.
 
 Family-wide. No `family` slug — one signed list governs trust dispatch for every family member's verifier. Published at `verify.dekimu.com/.well-known/dekimu-trusted-issuers.json`; append-only mirror at `dekimuhq/anchors-trusted-issuers-chain`.
 
@@ -298,7 +299,7 @@ Family-wide. No `family` slug — one signed list governs trust dispatch for eve
 
 ### §8.3 — `ar.issuer_manifest.v1` (per-issuer self-published manifest)
 
-**Status:** specced for Phase C of the cross-issuer interop plan §3. Not yet implemented. Owned by `@dekimuhq/anchors-federation` for fetch + verify; signing helper colocated with §8.2 under `@dekimuhq/anchors-envelope/trust-manifests`.
+**Status:** shipped — `@dekimuhq/anchors-federation` (Phase C of the cross-issuer interop plan). Fetch + verify per-issuer `dekimu-issuer.json` manifests (`fetchIssuerManifest` + `verifyIssuerManifest` + `runHandshake`); consumed by `verify.dekimu.com`'s discovery surface.
 
 Family-wide. One manifest per issuer (not per family member): each `did:web` issuer publishes ONE `dekimu-issuer.json` at their own `/.well-known/` path advertising which family memberships they emit, which `claim_type`s they support, which profiles they implement, and a pointer to their `dekimu-keys.json`. Consumed by `verify.dekimu.com` and by cross-issuer handshake tooling.
 
