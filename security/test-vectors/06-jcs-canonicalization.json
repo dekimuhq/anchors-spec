@@ -1,0 +1,24 @@
+{
+  "description": "RFC 8785 JCS canonicalization fixture: input object -> canonical string -> UTF-8 bytes -> SHA-256. A conforming canonicalizer MUST produce byte-identical output.",
+  "input": {
+    "z": 1,
+    "a": "é",
+    "m": {
+      "c": true,
+      "b": null,
+      "a": [
+        3,
+        2,
+        1
+      ]
+    },
+    "n": 1.5
+  },
+  "expected": {
+    "canonical_string": "{\"a\":\"é\",\"m\":{\"a\":[3,2,1],\"b\":null,\"c\":true},\"n\":1.5,\"z\":1}",
+    "canonical_bytes_hex": "7b2261223a22c3a9222c226d223a7b2261223a5b332c322c315d2c2262223a6e756c6c2c2263223a747275657d2c226e223a312e352c227a223a317d",
+    "canonical_bytes_len": 60,
+    "sha256": "sha256:8f0fbcf4980216652d9d58a9c9fa00fa3f9aecb46544a827acbdc6afe6c081b2",
+    "note": "Keys sorted by UTF-16 code unit, no whitespace, strings NFC-normalised (a: e+combining-acute -> U+00E9). Any deviation changes the SHA-256 and would break signature verification."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "description": "Signature-valid envelope whose credentialStatus points at an index set to 1 (revoked) in the status list. Verifier MUST reject.",
+  "sig_alg": "ed25519",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CREDPACK00000000000004",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.provenance.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "urn:example:artifact:001",
+    "exp": null,
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "kind": "observation",
+    "cause": "api",
+    "tsa": null,
+    "credentialStatus": {
+      "id": "https://status.example.com/anchors/v1#5",
+      "type": "StatusList2021Entry",
+      "statusPurpose": "revocation",
+      "statusListIndex": "5",
+      "statusListCredential": "https://status.example.com/anchors/v1"
+    },
+    "anchor": {
+      "log": "https://verify.example.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "mLxqlXMKyjui85LYxcOHhrpVZQbh5nGpKaQNAdgtIOImNbBrxxpx6jmp_f2NqOpYgEYTTyg-NFH8JZcZAoW4AA",
+    "countersig": null,
+    "body": {
+      "artifact": {
+        "type": "example.run.output",
+        "id": "art-001",
+        "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "hashAlgorithm": "sha256"
+      },
+      "agent": {
+        "kind": "ai",
+        "model": "example-model",
+        "provider": "example"
+      },
+      "authorization": {
+        "principalId": "user-001"
+      },
+      "startedAt": 1779667140,
+      "completedAt": 1779667200,
+      "disclosure": "public_full",
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "status_list_fixture": {
+    "note": "Self-contained decoded bitstring standing in for the credential fetched from statusListCredential. bit[i]=1 means the receipt at index i is revoked.",
+    "statusListCredential": "https://status.example.com/anchors/v1",
+    "statusPurpose": "revocation",
+    "decoded_bits": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "expected": {
+    "signature": "valid",
+    "verifier_outcome": "reject",
+    "reason": "revoked",
+    "note": "credentialStatus is SIGNED-IN. Verifier resolves the status list, reads bit[5]=1, rejects. Status is checked independently of signature validity."
+  }
+}
