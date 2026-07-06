@@ -31,6 +31,7 @@
 
 - Wire format is canonical `ar.<noun>.v<N>` (e.g. `ar.provenance.v1`). The `ar.` namespace identifies the family; acronyms (APR, ACR, …) are documentation shorthand.
 - New fields are additive and optional. Breaking changes require a new `v<N+1>` discriminator.
+- This repo also publishes an `agents.txt` / `.well-known/agent-policy.json` action-policy stub (deny-by-default) — the *"what an agent may do"* declaration that pairs with anchors' *"proof of what it did"*. Format: github.com/dekimuhq/agents-txt (agentPolicyVersion 0.1).
 
 ## Governance
 
