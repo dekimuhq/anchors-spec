@@ -44,6 +44,7 @@ Receipt formats for autonomous-agent and AI-pipeline events. They share the same
 - [Registry](registry.md) — canonical `claim_type` discriminator registry
 - [Family Consistency](family-consistency.md) — cross-family invariants (chip assignments, TSA upgrade paths, subject presence, package versions)
 - [Envelope](envelope/) — shared wire format (v1 + v2)
+- [AActR ↔ EU AI Act Art. 12/19/26 field mapping](action/aiact-art12-mapping.md) — field-level correspondence, not a conformity assessment
 
 ## Wire Format
 
