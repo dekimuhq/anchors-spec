@@ -1,0 +1,8 @@
+# Anchored Receipts spec — Agent Action Policy
+> Autonomous agents may interact with this surface under the policy below.
+> Unlisted actions are denied by default. Authorized actions require a
+> scoped agent credential and emit an independently verifiable receipt.
+
+Policy: https://raw.githubusercontent.com/dekimuhq/anchors-spec/main/.well-known/agent-policy.json
+Contact: security@dekimu.com
+Verify: https://verify.dekimu.com

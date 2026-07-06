@@ -1,0 +1,11 @@
+{
+  "agentPolicyVersion": "0.1",
+  "issuer": {
+    "name": "Dekimu",
+    "url": "https://dekimu.com"
+  },
+  "default": "deny",
+  "contact": "security@dekimu.com",
+  "verify": "https://verify.dekimu.com",
+  "capabilities": []
+}
