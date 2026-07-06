@@ -1,0 +1,12 @@
+{
+  "description": "Salted commitment fixture: commitment = SHA-256(salt_bytes || UTF-8(value)). Demonstrates the hiding commitment used for pseudonymised subjects/fields.",
+  "input": {
+    "salt_base64url": "u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7s",
+    "salt_bits": 256,
+    "value": "urn:example:subject:alice@example.com"
+  },
+  "expected": {
+    "commitment": "sha256:7488f3ecb8f7bbbbf6176adfe232513233b1589c0c9afcf0b7f0aae904b0887c",
+    "note": "commit(salt, value) = 'sha256:' + hex(SHA256(base64url_decode(salt) || utf8(value))). Verifier recomputes with the disclosed (salt, value) and compares. Brute-force resistance rests ENTIRELY on salt entropy + value unpredictability — a low-entropy value (e.g. a known email) is dictionary-attackable regardless of salt."
+  }
+}

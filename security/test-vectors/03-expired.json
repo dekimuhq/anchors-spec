@@ -1,0 +1,61 @@
+{
+  "description": "Signature-valid envelope whose exp precedes the verification instant. Verifier MUST reject on expiry.",
+  "sig_alg": "ed25519",
+  "verify_at": "2026-06-01T00:00:00Z",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CREDPACK00000000000003",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.provenance.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "urn:example:artifact:001",
+    "exp": "2026-05-26T00:00:00Z",
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "kind": "observation",
+    "cause": "api",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.example.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "lCCf1WHhrn8pr-C-KGrbZ0gLbJ-dKi1aqjfSpr6qgdAtloh6rWdg9rT56hgBvLR75zpwFA4xvbvpw7a-jndNBA",
+    "countersig": null,
+    "body": {
+      "artifact": {
+        "type": "example.run.output",
+        "id": "art-001",
+        "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "hashAlgorithm": "sha256"
+      },
+      "agent": {
+        "kind": "ai",
+        "model": "example-model",
+        "provider": "example"
+      },
+      "authorization": {
+        "principalId": "user-001"
+      },
+      "startedAt": 1779667140,
+      "completedAt": 1779667200,
+      "disclosure": "public_full",
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected": {
+    "signature": "valid",
+    "verifier_outcome": "reject",
+    "reason": "expired",
+    "note": "exp (2026-05-26T00:00:00Z) < verify_at (2026-06-01T00:00:00Z). Expiry is checked AFTER signature, independently of it."
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "description": "Valid ar.action.v1 envelope with subject:null (autonomous action receipt, no data subject). subject is part of the signed pre-image; null is a legitimate value and MUST verify.",
+  "sig_alg": "ed25519",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CREDPACK00000000000005",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.action.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": null,
+    "exp": null,
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "kind": "decision",
+    "cause": "api",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.example.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "e5yRL-5ni5LrLQ0TDYz2uUZCYcS5WwESRVt2qBZoPZkXCssO5S8HQUznEpO9jgD65sCwyhnBBMRbZ07EbNlEDQ",
+    "countersig": null,
+    "body": {
+      "action": {
+        "type": "example.automation",
+        "tool": "example-tool"
+      },
+      "agent": {
+        "kind": "ai",
+        "model": "example-model",
+        "provider": "example"
+      },
+      "startedAt": 1779667195,
+      "completedAt": 1779667200,
+      "disclosure": "public_full"
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected": {
+    "signature": "valid",
+    "claim_type": "ar.action.v1",
+    "verifier_outcome": "signature_ok",
+    "note": "null subject is signed-over like any other value; a verifier MUST NOT treat null subject as absent-field or reject it."
+  }
+}

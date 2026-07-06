@@ -1,0 +1,60 @@
+{
+  "description": "Valid v=2 envelope, ar.provenance.v1, Ed25519 signature over RFC 8785 pre-signature canonical bytes.",
+  "sig_alg": "ed25519",
+  "receipt": {
+    "v": 2,
+    "id": "01J5CREDPACK00000000000001",
+    "iat": "2026-05-25T00:00:00Z",
+    "iat_ms": 1779667200000,
+    "claim_type": "ar.provenance.v1",
+    "iss": "did:web:example.com",
+    "iss_key": "ed25519:5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+    "subject": "urn:example:artifact:001",
+    "exp": null,
+    "prev": null,
+    "policy_uri": null,
+    "policy_hash": null,
+    "policy_version": null,
+    "kind": "observation",
+    "cause": "api",
+    "tsa": null,
+    "credentialStatus": null,
+    "anchor": {
+      "log": "https://verify.example.com/test/v1",
+      "leaf_index": 0,
+      "inclusion_proof": [],
+      "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "tree_size": 1,
+      "log_time": "2026-05-25T00:00:00Z"
+    },
+    "sig": "vVFlDf-NtDiIGnbPy4W1wNuPENFp2yKMKxUuaa_nZJoTVXrvJyLLUgUuUoXuXjw3w9sajQKd5pE96W7Y0kT9CA",
+    "countersig": null,
+    "body": {
+      "artifact": {
+        "type": "example.run.output",
+        "id": "art-001",
+        "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "hashAlgorithm": "sha256"
+      },
+      "agent": {
+        "kind": "ai",
+        "model": "example-model",
+        "provider": "example"
+      },
+      "authorization": {
+        "principalId": "user-001"
+      },
+      "startedAt": 1779667140,
+      "completedAt": 1779667200,
+      "disclosure": "public_full",
+      "qts_attestation_hash": null
+    }
+  },
+  "issuer_public_key": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g",
+  "expected": {
+    "signature": "valid",
+    "claim_type": "ar.provenance.v1",
+    "verifier_outcome": "signature_ok",
+    "note": "Verifier MUST still resolve trust + anchor before any accept; a valid signature alone is not acceptance."
+  }
+}
