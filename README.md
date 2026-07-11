@@ -68,3 +68,10 @@ To report a vulnerability in the spec or any reference implementation, see [SECU
 
 All specification documents in this repository are released under [CC0 1.0 Universal](LICENSE).
 Reference implementations are licensed separately under Apache 2.0.
+
+## Learn more
+
+- **Verify a receipt live:** [verify.dekimu.com](https://verify.dekimu.com)
+- **MCP server (mint & verify receipts):** [dekimu-mcp](https://github.com/dekimuhq/dekimu-mcp)
+- **Policy for agent actions:** [agents-txt](https://github.com/dekimuhq/agents-txt)
+- **Who builds this:** [Dekimu](https://dekimu.com) — EU-first compliance & agent-trust tooling.
