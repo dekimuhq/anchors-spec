@@ -1,0 +1,69 @@
+{
+  "receipt": {
+    "kind": "forget.destruction.v1",
+    "alg": "Ed25519",
+    "subjectKeyIdHash": "99839d0fd18093817a625092e811ef9197f85c6f2bd4dc8f471d654925271795",
+    "kekKeyId": "kek-prod",
+    "destroyedAt": "2026-06-06T01:00:00Z",
+    "priorRosterRoot": "ff9ee517f7213e2d34a6898ff7a50f531740c2bc518169821d224edeea8644f4",
+    "newRosterRoot": "e8d0dd9a547903a9d9912151f5a450b7293d58b35ec94c58e58dcc2d046e2b61",
+    "signerKeyId": "sign-1",
+    "signature": "QrpEReGoZm7pnQbdYvnQByNXAzprfI7SHaInDHOskTAQQBNrXJoMPD87M7vBaGKLSGA-k9RdBBE59q0Ei9qBDQ"
+  },
+  "priorRoster": {
+    "kind": "forget.roster.v1",
+    "alg": "Ed25519",
+    "keyId": "roster-1",
+    "signature": "vn3gP48sfwO1v36bjWfFIu6q-63tdcME-bzpHuKpMdHKyWlnBQZMfqbaaI47Ti7CsJ-qn56RbOi5bMemRMEIDw",
+    "root": "ff9ee517f7213e2d34a6898ff7a50f531740c2bc518169821d224edeea8644f4",
+    "leafCount": 4,
+    "generatedAt": "2026-06-06T00:00:00Z",
+    "prevRoot": null
+  },
+  "newRoster": {
+    "kind": "forget.roster.v1",
+    "alg": "Ed25519",
+    "keyId": "roster-1",
+    "signature": "s28RprLEhan6BsQYBhzwfyJ5ngCIoDPsMxQn_t6gQ6nc5pQw733GyGPJFVV5ARJ78KPERd-A6vsTFuq9uEJEAQ",
+    "root": "e8d0dd9a547903a9d9912151f5a450b7293d58b35ec94c58e58dcc2d046e2b61",
+    "leafCount": 3,
+    "generatedAt": "2026-06-06T01:00:00Z",
+    "prevRoot": "ff9ee517f7213e2d34a6898ff7a50f531740c2bc518169821d224edeea8644f4"
+  },
+  "absence": {
+    "lo": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hi": "9b7c153ff34025201d5b382ee65ccca92f184a4b49c3dcab64ff490f5b330718",
+    "inclusion": {
+      "siblings": [
+        {
+          "hash": "4f7c7832ecd358eb2a40d0f2a5b5b5a8a141a6f27047e816ea5d7dddbab80304",
+          "side": "R"
+        },
+        {
+          "hash": "232acfd7c32bd0ecf556301952cc43938a96cd3d3aa930faf333422bfc0e7e33",
+          "side": "R"
+        }
+      ]
+    }
+  },
+  "presence": {
+    "lo": "99839d0fd18093817a625092e811ef9197f85c6f2bd4dc8f471d654925271795",
+    "hi": "9b7c153ff34025201d5b382ee65ccca92f184a4b49c3dcab64ff490f5b330718",
+    "inclusion": {
+      "siblings": [
+        {
+          "hash": "61d9fcc43054336e5d198f4d537f6359d0699ef6e915882c6590a536ef2934fe",
+          "side": "L"
+        },
+        {
+          "hash": "0966e6c07870f18050d6dc2672a442ba2aeea79625dc1b591f9c726aa407d967",
+          "side": "R"
+        }
+      ]
+    }
+  },
+  "signerPublicKeys": {
+    "roster-1": "d54207da194977dcf46adbfec2bc2e75b52d5a8a42184fedfdc00024f0e3e8da",
+    "sign-1": "43046bfe4092b3e94994eada15dcc20d8aaa07b658fd3954eb8e0efb8bdca5de"
+  }
+}

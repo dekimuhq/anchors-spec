@@ -32,6 +32,7 @@
 - [AgTR — Anchored Agent-Trace Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/trace/v1.md): `ar.trace.v1` (flat stage list) / [`ar.trace.v2`](https://github.com/dekimuhq/anchors-spec/blob/main/trace/v2.md) (OTel-compatible signed span tree with a Merkle `spans_root`) — how an agent run executed; execution provenance, not verified behavior.
 - [APIIR — Anchored PII-Redaction Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/redaction/v1.md): `ar.redaction.v1` — which PII-redaction pass ran over content before a model send; provenance of redaction, not a PII-free guarantee.
 - [ACBR — Anchored Compliance Bundle Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/compliance/v1.md): `ar.compliance.v1` — a workspace-level Proof-of-Compliance snapshot: RoPA register + DPIA receipts + obligation-satisfaction report referenced by content hash, with honest gap / not-applicable declarations; references constituents, never re-derives compliance.
+- [Proof of Forgetting — forget.* companion receipts](https://github.com/dekimuhq/anchors-spec/blob/main/forget/SPEC.md): `forget.roster.v1` / `forget.destruction.v1` / `forget.model-disposition.v1` — NOT an `ar.*` family; standalone by-value signed receipts making a GDPR Art. 17 erasure checkable (signed destruction receipt + Merkle non-inclusion proof against a signed roster; optional model-dimension disposition).
 
 ## Conventions
 
