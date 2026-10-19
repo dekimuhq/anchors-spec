@@ -1,6 +1,6 @@
 # Anchored Receipts — Specification
 
-Specification documents for the **Anchored Receipts** protocol family: **14 locked core** signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events, plus a growing set of **agent-era** receipt types (action, quality, guard, grounding, trace, redaction).
+Specification documents for the **Anchored Receipts** protocol family: **14 locked core** signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events, plus a growing set of **agent-era** receipt types (action, quality, guard, grounding, trace, redaction) and the **compliance-bundle** family (`ar.compliance.v1`) — **21 families** in all.
 
 **Spec licence:** CC0 1.0 Universal (public domain). Use it, fork it, embed it.
 **Reference implementations:** Apache 2.0, under [`dekimuhq`](https://github.com/dekimuhq) on GitHub.
@@ -38,6 +38,14 @@ Receipt formats for autonomous-agent and AI-pipeline events. They share the same
 | AGrR | `ar.grounding.v1` | Anchored Grounding Receipts | [Full spec](grounding/v1.md) |
 | AgTR | `ar.trace.v1` / `ar.trace.v2` | Anchored Agent-Trace Receipts | [Full spec](trace/v1.md) |
 | APIIR | `ar.redaction.v1` | Anchored PII-Redaction Receipts | [Full spec](redaction/v1.md) |
+
+### Compliance-bundle family (1)
+
+Workspace-level evidence assembly. Same `ar.<noun>.v<N>` wire form and envelope; the only family whose body is about other receipts.
+
+| Acronym | Wire type | Name | Spec status |
+|---------|-----------|------|-------------|
+| ACBR | `ar.compliance.v1` | Anchored Compliance Bundle Receipts | [Full spec](compliance/v1.md) |
 
 ## Cross-Family Documents
 

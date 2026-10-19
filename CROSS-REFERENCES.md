@@ -77,6 +77,8 @@
 | `body.arr_ref` | `ar.tokenization.v1` *(event: `token.revoked`)* | `ar.erasure.v1` | Optional. When token revocation co-occurs with Art. 17 erasure of the underlying plaintext, ATokR references the ARR receipt. | ATokR decision doc §1 |
 | `body.alr_ref` | `ar.tokenization.v1` *(event: `token.issued`, `token.rotated`)* | `ar.lineage.v1` | Optional. When the tokenized value flows through a pipeline, ATokR references the ALR receipt anchoring the lineage. | ATokR decision doc §1 |
 | `body.apur_ref` | `ar.tokenization.v1` *(any event)* | `ar.purpose.v1` | Optional. Purpose declared in ATokR scope; APuR purpose binding is the durable record. | ATokR decision doc §1 |
+| `body.constituents.dpia[].ref` (+ `contentHash`, `claimType: "ar.impact.v1"`) | `ar.compliance.v1` | `ar.impact.v1` | ACBR cites the controller's anchored DPIA receipts by verify claim id. The reference verifier is structural only; the public verifier re-reads each cited claim and gates the bundle aggregate on `trust_outcome === "valid_trusted"` — a crypto-intact but untrusted DPIA fails the bundle. Honest `not_applicable` declaration is not a failure. | [compliance/v1.md §3.2, §6](compliance/v1.md) |
+| `body.constituents.ropa` (`ref: "ropa:<registerHash>"` + `contentHash` + `embedded`) | `ar.compliance.v1` | `ropa.register.v1` *(by-value signed export, outside the `ar.*` namespace — not a `claim_type`)* | ACBR binds the controller's Art. 30 register export by content hash and carries it `embedded` for re-verification; never re-derives the register. Honest `gap` declaration is not a failure. | [compliance/v1.md §3.4](compliance/v1.md) |
 
 **Verifier invariants for cross-family refs:**
 

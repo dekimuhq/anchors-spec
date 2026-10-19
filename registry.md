@@ -43,6 +43,7 @@ Per spec §6 matrix. `kind` is OPTIONAL on every member; the values below are th
 | `ar.grounding.v1` | `observation` | Optional |
 | `ar.trace.v1` | `observation` | Optional |
 | `ar.redaction.v1` | `observation` | Optional |
+| `ar.compliance.v1` | `observation` | Optional |
 
 ---
 
@@ -77,6 +78,7 @@ Per spec §6 matrix. `kind` is OPTIONAL on every member; the values below are th
 | `ar.grounding.v1` | Records RAG citation-binding + grounding-support provenance for generated answers (binding authoritative, score advisory; provenance not truth). Null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. | [grounding/v1.md](grounding/v1.md) | `@dekimuhq/grounding` + `@dekimuhq/grounding-profiles` | shipped |
 | `ar.trace.v1` | Records per-run agent-execution provenance (provenance not behavior) — 1 profile (`agent.trace`). Null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AActR (single action vs whole run). | [trace/v1.md](trace/v1.md) | `@dekimuhq/trace` + `@dekimuhq/trace-profiles` | shipped |
 | `ar.redaction.v1` | Records which PII-redaction pass ran over content before model send (provenance of redaction, NOT a PII-free guarantee) — 1 profile (`redaction.prompt`); per-category counts + dual salted commits (input/output) + `ruleset_hash`; reversible map+salt are controller-only, never anchored. Null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from ATokR and `ar.anonymization.v1`. | [redaction/v1.md](redaction/v1.md) | `@dekimuhq/redaction` + `@dekimuhq/redaction-profiles` | build-to-ready (packages not yet published) |
+| `ar.compliance.v1` | Records a workspace-level Proof-of-Compliance snapshot — RoPA register + DPIA receipts (`ar.impact.v1`) + obligation-satisfaction report, each referenced by `sha256` content hash with honest `gap` / `not_applicable` declarations (GDPR Arts. 5(2), 30, 35). References constituents; never re-derives compliance. 1 profile (`compliance.bundle`). Null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. | [compliance/v1.md](compliance/v1.md) | `@dekimuhq/compliance` (verifier + `./issue` issuer-kit; no profiles package) | shipped (published 2026-06-21) |
 
 > **Note:** `ar.continuity.v1` previously appeared as a row above. It is a **standalone attestation**, not a `claim_type` — registered in the [Standalone attestations](#standalone-attestations-non-receipt-signed-artifacts) section below per the FAMILY-CONSISTENCY §8 generalisation (2026-05-19, cross-issuer interop doc-only gate).
 
