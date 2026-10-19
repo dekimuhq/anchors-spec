@@ -19,26 +19,29 @@ Canonical chip ordering. Each chip represents one family member's filter on the 
 | 1 | APR | `ar.provenance.v1` | shipped | First shipped family member |
 | 2 | ACR | `ar.consent.v1` (+ `ar.modification.v1`, `ar.withdrawal.v1`) | shipped | Single chip covers ACR's 3 claim_types |
 | 3 | ARR | `ar.erasure.v1` (+ `ar.expiry.v1`, `ar.hold.v1`, `ar.anonymization.v1`, `ar.archive.v1`, `ar.batch.v1`) | shipped | Single chip covers ARR's 6 claim_types |
-| 4 | ADR | `ar.delegation.v1` | shipped | verifier 0.1.0 + issuer-kit 0.1.0 + profiles 0.1.0; 6 event types + 5 regulatory profiles (GDPR Art. 28, AI Act Arts. 14/26, corporate, agentops) |
+| 4 | ADR | `ar.delegation.v1` | shipped | adr 0.4.0 + adr-profiles 0.4.0 (2026-07-31 re-sync); 6 event types + 6 regulatory profiles (GDPR Art. 28, GDPR DSR authorised-agent (§5.6, additive 2026-07-05, publish-gated), AI Act Arts. 14/26, corporate, agentops); OPTIONAL grant-only `authorizing_credential {scheme,id,type}` — reference (by id) to an external authorizing artifact, canonically an AP2 mandate (SD-JWT-VC), receipt-*of* never is-a; additive 2026-07-01, prohibited on non-grant events, mirrors AActR `credential_id` (chip 15). Decision: `2026-06-30-mandate-naming-posture-vs-ap2.md` |
 | 5 | ATR | `ar.transfer.v1` | shipped | 4 event types (arrangement, transfer, tia, suspension); 8 profiles; per-event subject split; transfer validity computation §7.2 |
 | 6 | APuR | `ar.purpose.v1` | shipped | 3 event types (binding, repurpose, unbinding); 4 regulatory profiles |
 | 7 | AER | `ar.evaluation.v1` | shipped | 2 event types (conformity + transparency), 9 profiles |
-| 8 | AAR | `ar.attestation.v1` | shipped | 2 event types (issuance, revocation); eIDAS qualified-trust-service attestations; QTS issuance carries MANDATORY-TSA |
-| 9 | ALR | `ar.lineage.v1` | shipped | 4 event types (derived, forked, superseded, disclosed); dataset-level lineage; Status List 2021 reference consumer |
-| 10 | ANR | `ar.notice.v1` | shipped | 6 event types; transparency-notice presentation; the AI Act Art. 50 transparency profile carries MANDATORY-TSA + QTS OID |
+| 8 | AAR | `ar.attestation.v1` | shipped | aar 0.4.0 + aar-profiles 0.3.3 + aar-tsl 0.2.6 (2026-07-31 re-sync) |
+| 9 | ALR | `ar.lineage.v1` | shipped | alr 0.5.0 + alr-profiles 0.4.2 (2026-07-31 re-sync) |
+| 10 | ANR | `ar.notice.v1` | shipped | anr 0.7.0 + anr-profiles 0.6.2 (2026-07-31 re-sync) |
 | 11 | ABR | `ar.breach.v1` | shipped | 8 event types under 5 regulatory profiles (GDPR Art. 33/34, NIS2 Art. 23, DORA Art. 19, US-AG) |
 | 12 | ASR | `ar.subject_rights.v1` | shipped | 9 event types under 6 regulatory profiles (GDPR Arts. 15/16/17/18/20/21); first family minted via factory-from-day-1 through `defineFamily()` |
 | 13 | AIR | `ar.impact.v1` | shipped | 11 wire event types (9 logical + terminal trio) under 5 regulatory profiles (GDPR Art. 35(3)(a-c), Art. 35(4) DPA-list, voluntary); RECOMMENDED-TSA matrix on 3 deadline-bearing events (completed, prior_consultation_initiated, prior_consultation_resolved) — no MANDATORY-TSA event in v1; per-event subject carve-out on `dpia.stakeholders_consulted` (D10-AIR-6) |
-| 14 | ATokR | `ar.tokenization.v1` | shipped | 4 event types (`token.issued`, `token.redeemed`, `token.revoked`, `token.rotated`); PII-free — salted commit only; scope-binding (audience + purpose + validity); format_class discriminator (`pan`, `email`, `iban`, `phone`, `national_id`, `freeform`). Decision: 2026-05-20-atokr-anchored-tokenization-receipts.md |
-| 15 | AActR | `ar.action.v1` | shipped | Autonomous Hub-automation action receipt. Single-shape, null-subject (workspace-level); 1 profile (`hub.automation`); plaintext `verb`/`rule_id`/`recipe_id`/`outcome`/`executed_at` + 3 salted target commits (`decision_commit`/`params_commit`/`request_id_commit`); OPTIONAL mandate binding (`credential_id` + `caveats_consumed`, plus `delegation_chain` for sub-agent delegation paths); Status-List non-consumer; TSA OPTIONAL. Spec: [action/v1.md](action/v1.md) |
-| 16 | AQR | `ar.quality.v1` | shipped | Anchored Quality Receipts — output/version eval provenance (provenance not truth). 2 profiles (`quality.output`, `quality.release`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AER (`ar.evaluation.v1`). Spec: [quality/v1.md](quality/v1.md) |
-| 17 | AGR | `ar.guard.v1` | shipped | Anchored Guard Verdicts — deterministic prompt-injection/input-screening verdict (provenance of screening, NOT a safety guarantee). Verdict pass/flagged/blocked; golden-pinned `ruleset_hash`; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. Spec: [guard/v1.md](guard/v1.md) |
-| 18 | AGrR | `ar.grounding.v1` | shipped | Anchored Grounding Receipts — RAG citation-binding + grounding-support provenance (binding authoritative, score advisory; provenance not truth). null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. Spec: [grounding/v1.md](grounding/v1.md) |
-| 19 | AgTR | `ar.trace.v1` | shipped | Anchored Agent-Trace Receipts — per-run execution provenance (provenance not behavior). 1 profile (`agent.trace`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AActR (single action vs whole run). Spec: [trace/v1.md](trace/v1.md) |
-| 20 | APIIR | `ar.redaction.v1` | build-to-ready (packages not yet published) | Anchored PII-Redaction Receipts — proves which PII-redaction pass ran before model send (provenance of redaction, NOT a PII-free guarantee). 1 profile (`redaction.prompt`); per-category counts + dual salted commits + `ruleset_hash`; reversible map+salt controller-only, never anchored; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from ATokR and `ar.anonymization.v1`. Spec: [redaction/v1.md](redaction/v1.md) |
-| 21 | ACBR | `ar.compliance.v1` | shipped (published 2026-06-21) | Anchored Compliance Bundle Receipts — workspace-level Proof-of-Compliance snapshot (RoPA + DPIA + obligation-satisfaction references by content hash; references constituents, never re-derives compliance). 1 profile (`compliance.bundle`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`); continuity false. Spec: [compliance/v1.md](compliance/v1.md) |
+| 14 | ATokR | `ar.tokenization.v1` | shipped | `@dekimuhq/atokr` 0.3.0 (consolidated verifier + issuer-kit, `.` + `./issue` subpaths) + `atokr-profiles` 0.2.4; 4 event types (`token.issued`, `token.redeemed`, `token.revoked`, `token.rotated`); PII-free — salted commit only; scope-binding (audience + purpose + validity); format_class discriminator (`pan`, `email`, `iban`, `phone`, `national_id`, `freeform`). Decision: `2026-05-20-atokr-anchored-tokenization-receipts.md` |
+| 15 | AActR | `ar.action.v1` | shipped | Autonomous Hub-automation action receipt. Single-shape, null-subject (workspace-level); 1 profile (`hub.automation`); plaintext `verb`/`rule_id`/`recipe_id`/`outcome`/`executed_at` + 3 salted target commits (`decision`/`params`/`request_id`); OPTIONAL mandate binding (`credential_id` + `caveats_consumed`, + `delegation_chain` `{depth,leaf_key,root_credential_id}` for sub-agent delegation paths — Bet B Unit 3, 2026-06-18, additive; + `agent_id` per-agent principal — 2026-06-19, additive); Status-List non-consumer; TSA OPTIONAL. Spec: [action/v1.md](action/v1.md) |
+| 16 | AQR | `ar.quality.v1` | shipped | Anchored Quality Receipts — output/version quality-eval provenance (provenance not truth). `@dekimuhq/quality` 0.1.0 + `quality-profiles` 0.1.0; null-subject (must-be-null); 2 profiles (`quality.output`, `quality.release`); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`). DISTINCT from AER (`ar.evaluation.v1`, AI Act conformity). Spec: [quality/v1.md](quality/v1.md) |
+| 17 | AGR | `ar.guard.v1` | shipped | Anchored Guard Verdicts — deterministic prompt-injection / input-screening verdict receipt (provenance of screening, NOT a safety guarantee). `@dekimuhq/guard` 0.1.0 + `guard-profiles` 0.1.0 + `guard-detect` 0.1.0; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`). DISTINCT from AER (`ar.evaluation.v1`) and AQR (`ar.quality.v1`). |
+| 18 | AGrR | `ar.grounding.v1` | shipped | Anchored Grounding Receipts — citation-binding + grounding-support provenance for RAG answers (binding-authoritative, score-advisory; provenance not truth). `@dekimuhq/grounding` 0.1.0 + `grounding-profiles` 0.1.0 + `grounding-check` 0.1.0; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`). DISTINCT from AER/AQR/AGR. Spec: [grounding/v1.md](grounding/v1.md) |
+| 19 | AgTR | `ar.trace.v1` | shipped | Anchored Agent-Trace Receipts — per-run execution provenance (provenance not behavior). `@dekimuhq/trace` 0.1.0 + `trace-profiles` 0.1.0; null-subject (must-be-null); 1 profile (`agent.trace`); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`). DISTINCT from AActR/AQR/AGR. Spec: [trace/v1.md](trace/v1.md) |
+| 19 | AgTR | `ar.trace.v2` | shipped | signed OTel-compatible span tree; spans[] + parent_span_id + Merkle spans_root (per-span selective disclosure); coexists with v1-flat. `@dekimuhq/trace` 0.2.0 + `trace-profiles` 0.2.0 + `@dekimuhq/trace-otel` 0.1.0. null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`); single profile `agent.trace`. DISTINCT from AActR/AQR/AGR. |
+| 20 | APIIR | `ar.redaction.v1` | shipped (published 2026-06-21) | Anchored PII-Redaction Receipts — proves which PII-redaction pass ran over content before model send (provenance of redaction, NOT a PII-free guarantee). `@dekimuhq/redaction` 0.1.0 + `redaction-profiles` 0.1.0; null-subject (must-be-null); 1 profile (`redaction.prompt`); per-category counts + dual salted commits (input/output) + `ruleset_hash`; reversible map + salt are controller-only, NEVER anchored; reuses the `@dekimuhq/ai` `redactPII` detector (no own detection engine). Status-List non-consumer; TSA OPTIONAL (upgrade path `free`). DISTINCT from ATokR (`ar.tokenization.v1`, reversible vault token) and `ar.anonymization.v1` (irreversible). Spec: [redaction/v1.md](redaction/v1.md) |
+| 21 | ACBR | `ar.compliance.v1` | shipped (published 2026-06-21) | Anchored Compliance Bundle Receipts — workspace-level Proof-of-Compliance bundle (RoPA + DPIA + obligation-satisfaction references). `@dekimuhq/compliance` 0.1.0; null-subject (must-be-null); single profile (`compliance.bundle`); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`); continuity false. References constituents; does not re-derive compliance. Spec: [compliance/v1.md](compliance/v1.md) |
 
 > **Audit fix H4 (2026-05-17):** ANR/ABR/ASR/AIR specs had previously claimed chip positions 6/7/8/9, which collided with AER (positions 4–9 unassigned). This table replaces all per-spec chip-position claims. Member specs SHOULD NOT redeclare chip position; they reference this table instead.
+>
+> **Version re-sync (2026-06-04):** ALR + ANR Notes synced to the post-publish package versions after the verifier↔profiles cycle-break patch bump (acr/alr/anr/asr/arr) + ATR merge. §6 test counts were already re-measured the same day (see §6 note); ACR/ARR/ASR rows carry no version string here.
 
 ---
 
@@ -78,19 +81,20 @@ Per-event TSA (eIDAS RFC 3161 trusted timestamp) requirement. The v1.1 envelope 
 | ANR | other profiles | RECOMMENDED | Notice presentation deadlines |
 | ABR | `body.event_type: breach.detected` | **MANDATORY** (per spec D10-ABR-2) | The 72-hour clock starts here; no exception |
 | ABR | other events | RECOMMENDED | All breach-lifecycle events are deadline-sensitive |
-| ASR | `body.event_type: request.received` | RECOMMENDED | 30-day clock starts here; raise to MANDATORY in v1.1 if EUDI Wallet pilots demand stronger anchoring |
+| ASR | `body.event_type: request.received` | RECOMMENDED | 30-day clock starts here; raise to MANDATORY in v1.1 if EUDI Wallet pilots demand stronger anchoring. **Verifier enforcement (the `tsa_recommended` warning) DEFERRED to Phase 4 Task 4.5a** — the event-keyed mandate callback shape that also resolves ABR's matrix is not yet wired, so `asr-verifier` surfaces no warning for this event in the current release. |
 | ASR | other events | OPTIONAL | |
 | AIR | `body.event_type: dpia.completed` | RECOMMENDED | DPIA completion sequence vs processing-start |
 | AIR | `body.event_type: dpia.prior_consultation_initiated` | RECOMMENDED | Art. 36 clock |
 | AIR | `body.event_type: dpia.prior_consultation_resolved` | RECOMMENDED | DPA-advice receipt clock |
 | AIR | other events | OPTIONAL | |
 | ATokR | (any) | OPTIONAL | No regulatory clock starts on a tokenization event in current EU regimes. Re-evaluate if EUDI Wallet ARF or NIS2 sectoral acts impose tokenization deadlines. |
-| AActR | (any) | OPTIONAL | No regulatory clock starts on an autonomous action; trusted timestamp is opt-in (rationale as APR/ADR). |
-| AQR | (any) | OPTIONAL | No regulatory clock starts on a quality eval; trusted timestamp is opt-in. |
-| AGR | (any) | OPTIONAL | No regulatory clock starts on a guard verdict; trusted timestamp is opt-in. |
-| AGrR | (any) | OPTIONAL | No regulatory clock starts on a grounding receipt; trusted timestamp is opt-in. |
-| AgTR | (any) | OPTIONAL | No regulatory clock starts on an agent-trace event; trusted timestamp is opt-in. |
-| APIIR | (any) | OPTIONAL | No regulatory clock starts on a redaction pass; trusted timestamp is opt-in. |
+| AActR | (any) | OPTIONAL | No regulatory clock starts on an autonomous action; trusted timestamp is opt-in. |
+| AQR | (any) | OPTIONAL | No regulatory clock starts on a quality eval; trusted timestamp is opt-in (upgrade path `free`). |
+| AGR | (any) | OPTIONAL | No regulatory clock starts on a guard verdict; trusted timestamp is opt-in (upgrade path `free`). |
+| AGrR | (any) | OPTIONAL | No regulatory clock starts on a grounding receipt; trusted timestamp is opt-in (upgrade path `free`). |
+| AgTR | (any) | OPTIONAL | No regulatory clock starts on an agent-trace event; trusted timestamp is opt-in (upgrade path `free`). |
+| AgTR (`ar.trace.v2`) | (any) | OPTIONAL | Span-tree trace; no regulatory clock; trusted timestamp is opt-in (upgrade path `free`). |
+| APIIR | (any) | OPTIONAL | No regulatory clock starts on a redaction pass; trusted timestamp is opt-in (upgrade path `free`). |
 | ACBR | (any) | OPTIONAL | No regulatory clock starts on a compliance bundle receipt; trusted timestamp is opt-in (upgrade path `free`). |
 
 > **Audit fix H7 (2026-05-17):** prior to this table, TSA mandate language varied across closure specs (ABR mandated on `breach.detected`, ASR recommended on `request.received`, AIR recommended on `dpia.completed` — without a principled rule). This table applies a single rule (regulatory-clock-start ⇒ MANDATORY; deadline-checks ⇒ RECOMMENDED; else OPTIONAL). Member specs reference this table; per-spec mandate language MUST match.
@@ -103,7 +107,7 @@ Each family member declares whether the `subject` envelope field is `null`, popu
 
 | Family | Event | `subject` value | Rationale |
 |---|---|---|---|
-| APR | (any) | free-form `<anything except "sha256:" prefix>` (artifact URL/id) | Provenance; v1.1 §5.4 |
+| APR | (any) | free-form (artifact URL/id); `"sha256:<hex>"` is accepted and is the typical/recommended form (asset hash) | Provenance; v1.1 §5.4. Verifier requires subject present, no prefix exclusion (`apr-verifier` `checkSubjectPresence` accepts `sha256:<hex>`) |
 | ACR | (any) | `"sha256:<hex>"` (HMAC-salted subject commit) | Required per v1.1 §5.4 |
 | ARR | (any) | `"sha256:<hex>"` | Required per v1.1 §5.4. Body carries `target_kind` + `target_commit` for finer-grain target discrimination (subject vs system vs object) |
 | ADR | (any) | `"sha256:<hex>"` of delegator commit; processor/deployer references in body | |
@@ -124,11 +128,12 @@ Each family member declares whether the `subject` envelope field is `null`, popu
 | ASR | (every event) | `"sha256:<hex>"` (MANDATORY per D10-ASR-5) | Every event is subject-scoped |
 | AIR | (every event) | `null` (DPIA is processing-activity-level) | EXCEPT `body.event_type: stakeholders_consulted` where representative-org commit MAY appear |
 | ATokR | (every event) | `"sha256:<hex>"` (salted commit of the tokenized plaintext) | Every tokenization event is subject-scoped — the receipt anchors the surrogate↔plaintext mapping proof |
-| AActR | (any) | `null` (MUST be null) | Workspace/activity-level; the action's target is a body commit (`decision_commit`/`params_commit`), never the envelope subject |
+| AActR | (every receipt) | `null` | Workspace/activity-level; the action's target is a body commit (`decision_commit`/`params_commit`), never the envelope subject |
 | AQR | (every receipt) | `null` (must-be-null) | Quality eval is about a model/output, not a data subject |
 | AGR | (every receipt) | `null` (must-be-null) | Guard verdict is about a prompt/input, not a data subject |
 | AGrR | (every receipt) | `null` (must-be-null) | Grounding receipt is about a RAG answer + sources, not a data subject |
 | AgTR | (every receipt) | `null` (must-be-null) | Agent-trace is about an execution run, not a data subject |
+| AgTR (`ar.trace.v2`) | (every receipt) | `null` (must-be-null) | Span-tree trace is about an execution run, not a data subject; per-span detail is bound via the Merkle `spans_root`, never the envelope subject |
 | APIIR | (every receipt) | `null` (must-be-null) | Redaction is about a prompt/content blob, not a data subject; the redacted content is bound via salted body commits, never the envelope subject |
 | ACBR | (every receipt) | `null` (must-be-null) | Compliance bundle is workspace-level; constituents reference data subjects by hash in their own receipts |
 
@@ -158,7 +163,7 @@ W3C Status List 2021 was introduced in v1.1 hardening (§8). Each family member 
 
 APR currently does NOT consume Status List 2021 (provenance receipts are typically not revocable; immutability is part of their value). Adding APR to Status List 2021 would require a v1.1 APR amendment.
 
-AActR (`ar.action.v1`) likewise does NOT consume Status List 2021 (`status_list_slot: null`): an autonomous action is a non-revocable event that *happened* — there is no suspension/revocation surface in v1. Same posture as APR.
+AActR also does NOT consume Status List 2021 (`status_list_slot: null`) — an autonomous action is a non-revocable event that *happened*; there is no suspension/revocation surface in v1 (spec §3, decision 3).
 
 AQR also does NOT consume Status List 2021 (`status_list_slot: null`) — an eval is a point-in-time fact; supersede with a newer receipt, never revoke.
 
@@ -166,7 +171,7 @@ AGR also does NOT consume Status List 2021 (`status_list_slot: null`) — a guar
 
 AGrR also does NOT consume Status List 2021 (`status_list_slot: null`) — a grounding receipt is a point-in-time binding+scoring fact about one answer; supersede with a newer receipt, never revoke.
 
-AgTR also does NOT consume Status List 2021 (`status_list_slot: null`) — an agent-trace is a point-in-time execution record; supersede with a newer receipt, never revoke.
+AgTR also does NOT consume Status List 2021 (`status_list_slot: null`) — an agent-trace is a point-in-time execution record; supersede with a newer receipt, never revoke. This holds for both claim types (`ar.trace.v1` flat + `ar.trace.v2` span-tree).
 
 APIIR also does NOT consume Status List 2021 (`status_list_slot: null`) — a redaction receipt is a point-in-time provenance fact; supersede with a newer receipt, never revoke.
 
@@ -188,14 +193,17 @@ Every member spec's anchor flow §7 and verifier package SHOULD reference these 
 
 | Package | Purpose | Required for |
 |---|---|---|
-| `@dekimuhq/anchors-envelope` | v1.1+ shared envelope, canonical-JSON helpers, signing primitives, `JSON_LOGIC_ALLOWLIST_V1_2` constant | Every member's verifier + issuer-kit |
+| `@dekimuhq/anchors-envelope` (subpaths: `/continuity`, `/issuer`, `/suspension`, `/merkle`, `/commit`, `/field-commit`) | v1.1+ shared envelope, canonical-JSON helpers, signing primitives, `JSON_LOGIC_ALLOWLIST_V1_2` constant. Phase 2 Tier A added `/merkle` (Merkle tree helpers, lifted from acr-verifier), `/commit` (salted-field commit primitive), and `/field-commit` (`ar.field_commit.v1` attestation shape + issue/verify helpers). | Every member's verifier + issuer-kit |
 | `@dekimuhq/did-web-resolver` (v0.1.0, shipped 2026-05-17; 0.2.0 adds `verifyIssuerKey` + trust-tier hooks under Phase A of the cross-issuer interop plan) | did:web resolution + InMemoryKeyCache + `trustedLogs` allowlist option (cross-issuer interop) | Every member's verifier that accepts non-Dekimu issuers; closure-set members SHOULD declare cross-issuer interop support in v1 |
 | `@dekimuhq/anchors-trusted-issuers` (Phase B of the cross-issuer interop plan, 2026-05-19) | Default `TrustedIssuersSource` implementation: signed allowlist + revocation surface, mirrored at `verify.dekimu.com/.well-known/dekimu-trusted-issuers.json` and hash-chained at `dekimuhq/anchors-trusted-issuers-chain` | Every member's verifier whose default trust dispatch matches Dekimu's policy; OPTIONAL for verifiers that ship their own `TrustedIssuersSource` |
-| `@dekimuhq/anchors-federation` (Phase C of the cross-issuer interop plan) | Federated discovery: fetch + verify per-issuer `dekimu-issuer.json` manifests (advertised family memberships, claim_types, profiles); cross-issuer handshake CLI | OPTIONAL — only verifiers and tools that surface cross-issuer discovery (e.g. `verify.dekimu.com`, audit pipelines). Member specs SHOULD list the family memberships and profiles they expect to advertise in their own `dekimu-issuer.json` |
+| `@dekimuhq/anchors-federation` 0.1.0 (Phase C of the cross-issuer interop plan, shipped 2026-05-22) | Federated discovery: `fetchIssuerManifest` + `verifyIssuerManifest` + `runHandshake` + `ManifestCache`; parses, verifies, and caches `ar.issuer_manifest.v1` documents; CLI handshake report | OPTIONAL — only verifiers and tools that surface cross-issuer discovery (e.g. `verify.dekimu.com`, audit pipelines). Member specs SHOULD list the family memberships and profiles they expect to advertise in their own `dekimu-issuer.json` |
+| `@dekimuhq/anchors-disclosure` (private, Phase 2 Tier A, shipped 2026-06-01) | Tier A selective disclosure: `buildPresentation`/`assemblePresentation` (assemble reveal set + Merkle paths into an `ar.disclosure.v1` presentation) + `verifyPresentation` (verifies field reveals against the issuer-signed `ar.field_commit.v1` out of body). The `ar.field_commit.v1` attestation is issued/verified by `@dekimuhq/anchors-envelope` (`issueFieldCommit`/`verifyFieldCommit`, `./field-commit`). | OPTIONAL — disclosure tooling only; not required by any member verifier in v1. **Exception: `ar.trace.v2` (AgTR)** imports `@dekimuhq/anchors-disclosure` directly — its issuer-kit (`mintTraceV2`) computes the per-span Merkle `spans_root` for selective disclosure; the verifier NEVER recomputes `spans_root` (format check only — the tree verifier holds only the skeleton). This is a REQUIRED import for the trace v2 package (beyond the baseline `@dekimuhq/anchors-envelope`). |
 
 > **Audit fix H11 + H12 (2026-05-17):** consolidates package-reference rule. Pre-canonical specs (ATR/APuR/AER/AAR/ALR) had no envelope-package mention; closure specs (ANR/ABR/ASR/AIR) had no did-web-resolver mention. This table establishes both as family-wide mandatory imports.
 >
 > **Cross-issuer interop additions (2026-05-19, plan-approved):** `@dekimuhq/anchors-trusted-issuers` and `@dekimuhq/anchors-federation` added as opt-in shared infrastructure for the trust surface. They do NOT touch wire format. Member specs that integrate `verifyIssuerKey` (mandatory once 0.2.0 lands in Phase A) SHOULD reference the default `TrustedIssuersSource` shipped by `@dekimuhq/anchors-trusted-issuers` unless the deployment overrides it.
+>
+> **`did-web-resolver` conditionality (behavioral rule — clarified 2026-05-30, generalized 2026-06-04):** the row's "Required for" is conditional on a verifier performing its **own** in-verifier issuer-trust dispatch. **Every current family verifier (all 14) delegates issuer-key resolution entirely to the caller's `resolveKey`** — the default returns `undefined` and no member bundles a did:web / cross-issuer trust step (verified across the family 2026-06-04, ASR carve-out corrected 2026-09-02: APR/ACR/ARR/ALR/ANR/ABR/AIR/ATR/APuR/AER/AAR/ADR/ATokR use the wrapper `resolveKey: opts?.resolveKey ?? (() => undefined)`; **ASR is the one exception** — factory-from-day-1 through `defineFamily()`, no legacy wrapper: `resolveKey` is a **required** `FamilyVerifyOptions` field with no fallback, so caller-delegation holds there by construction). So `@dekimuhq/did-web-resolver` is **OPTIONAL for every family verifier today**; it becomes REQUIRED only for a member that adopts in-verifier `verifyIssuerKey` in a future minor. Cross-issuer trust is the integrator's responsibility until then. _(Supersedes the earlier "pre-canonical APR/ACR/ARR only" wording — that named three examples of what is in fact the universal pattern; the invariant audit 2026-06-04 flagged the gap as 5 separate false discrepancies.)_
 
 ---
 
@@ -203,23 +211,40 @@ Every member spec's anchor flow §7 and verifier package SHOULD reference these 
 
 | Family | Status | Tests promised | Engineering budget (1-eng-eq) | Closeable by |
 |---|---|---|---|---|
-| APR | shipped | 211 | shipped | shipped |
-| ACR | shipped | (subset of 579 total) | shipped | shipped |
-| ARR | shipped | (subset of 579 total) | shipped | shipped |
-| ADR | shipped | 99+ | shipped | — |
-| ATR | shipped | 173 (verifier 75 + profiles 77 + issuer-kit 21) | shipped | — |
-| APuR | shipped | 170 | shipped | — |
-| AER | shipped | 90+ | ~3.5 weeks | shipped |
-| AAR | shipped | 166 (verifier 76 + issuer-kit 14 + profiles 76) | shipped | shipped |
-| ALR | shipped | 155 (verifier 81 + issuer-kit 33 + profiles 41) | shipped | shipped |
+| APR | shipped | 89 (apr 89; no profiles package) | shipped | shipped |
+| ACR | shipped | 183 (acr 141 + acr-profiles 42) | shipped | shipped |
+| ARR | shipped | 217 (arr 171 + arr-profiles 46) | shipped | shipped |
+| ADR | shipped | 196 (adr 151 + adr-profiles 45) | shipped | — |
+| ATR | shipped | 175 (verifier 75 + profiles 77 + issuer-kit 23) | shipped | — |
+| APuR | shipped | 171 (verifier 99 + profiles 49 + issuer-kit 23) | shipped | — |
+| AER | shipped | 118 (aer 71 + aer-profiles 47; verifier + issuer-kit consolidated into `@dekimuhq/aer` — re-measured 2026-09-02) | ~3.5 weeks | shipped |
+| AAR | shipped | 217 (aar 90 + aar-profiles 76 + aar-tsl 51) | shipped | shipped |
+| ALR | shipped | 160 (alr 119 + alr-profiles 41) | shipped | shipped |
 | ANR | shipped | 268 (verifier 154 + issuer-kit 45 + profiles 69) | shipped | shipped |
-| ABR | shipped | 373 (verifier 166 + issuer-kit 104 + profiles 103) | shipped | shipped |
-| ASR | shipped | 213 (verifier 93 + issuer-kit 3 + profiles 117) | shipped | shipped |
-| AIR | shipped | 406 (verifier 192 + issuer-kit 103 + profiles 111) | shipped | shipped |
-| ATokR | shipped | 136 (verifier 56 + issuer-kit 20 + profiles 32 + integration 28) | 0.1.0 | — |
+| ABR | shipped | 453 (verifier 197 + issuer-kit 113 + profiles 143) | shipped | shipped |
+| ASR | shipped | 409 (asr 292 + asr-profiles 117) | shipped | shipped |
+| AIR | shipped | 465 (verifier 242 + issuer-kit 112 + profiles 111) | shipped | shipped |
+| ATokR | shipped | 109 (atokr 77 + atokr-profiles 32; verifier + issuer-kit consolidated into `@dekimuhq/atokr` — re-measured 2026-09-02) | shipped | shipped |
+| AActR | shipped | 223 (action 142 + action-profiles 81) | ~0.5 eng-eq | shipped (2026-06-08) |
+| AQR | shipped | 156 (quality 109 + quality-profiles 47) | ~0.5 eng-eq | shipped (2026-06-19) |
+| AGR | shipped | 99 (guard 47 + guard-profiles 7 + guard-detect 45) | ~0.5 eng-eq | shipped (2026-06-20) |
+| AGrR | shipped | 125 (grounding 57 + grounding-profiles 59 + grounding-check 9) | ~0.5 eng-eq | shipped (2026-06-20) |
+| AgTR | shipped | 148 (trace 134 + trace-otel 4 + trace-profiles 10) | ~0.5 eng-eq | shipped (2026-06-20) |
+| AgTR (`ar.trace.v2`) | shipped | see `trace`/`trace-profiles` 0.2.0 + `trace-otel` 0.1.0 test suites (v2 span-tree + OTel exporter) | ~0.5 eng-eq | shipped (published 2026-07-06) |
+| APIIR | shipped | 91 (redaction 58 [verify-single 36 + mint-v1 22] + redaction-profiles 33) | ~0.5 eng-eq | published 2026-06-21 |
+| ACBR | shipped | 196 (compliance 196; no profiles pkg) | ~0.5 eng-eq | published 2026-06-21; floor re-applied 2026-09-07 (was 9, exemption lifted) |
 
-**Total unimplemented: 0 — all 14 locked core families shipped.**
-**Family-wide test gate:** ≥99 tests per family member — except APR (exempt: pre-canonical reference family with no profiles package; the ≥99 floor was set after APR shipped).
+**Total unimplemented: 0 — all 21 members built AND published (AActR added 2026-06-08; AQR added 2026-06-19; AGR + AGrR + AgTR added 2026-06-20; APIIR + ACBR added 2026-06-21 and published the same day).**
+
+> **APIIR test-floor note (RESOLVED — 2026-06-21):** the suite was expanded 12 → **91 genuine tests**. Coverage spans every validator error path (both `verifyRedactionBody` and the `redaction.prompt` profile), all 6 categories + empty/zero/boundary counts, the `Array.isArray` counts guard, `buildRedactionBody` shape/passthrough, all five `mintRedactionV1` guards, verify-before-sign, round-trip Ed25519 verification, tamper rejection, salt/PII absence, and commit-reveal (`verifyCommitment`). At 91 it sits 8 short of the ≥99 floor; the remaining gap is **accepted as the genuine ceiling for this surface** (APIIR has no own detection engine — it reuses `@dekimuhq/ai` `redactPII`; unlike AGR's 45-test `guard-detect` corpus), padding to 99 would be test-theater. Documented mini-exemption, parallel to APR's grandfathering rationale.
+
+> **ACBR test-floor note (EXEMPTION LIFTED — 2026-09-07):** the floor now applies to ACBR and it clears it: the `compliance` suite was expanded **9 → 196 genuine tests**. **The 2026-07-06 exemption should never have been granted on the reason it gave.** It rested on ACBR being "build-to-ready, publish-gated" with publish "not yet scheduled", and bound itself to re-apply the floor at publish time — but `@dekimuhq/compliance@0.1.0` had **already published on 2026-06-21** (the registry's publish timestamp, read from the registry rather than from a document), **sixteen days before the exemption was written**. So a published package ran on 9 tests against a ≥99 floor for 78 days, and the condition that was supposed to catch it had already passed unnoticed. This is NOT the APIIR case: APIIR stopped at 91 because it has no detection engine of its own and padding would have been test-theater, whereas ACBR's surface genuinely supports the coverage — ~30 distinct validator error codes over a nested body, plus five mint guards, verify-before-sign, envelope-field derivation and tamper rejection on the only surface in the package that emits a SIGNED artefact. The mint guards had **zero** coverage before this pass. Lesson recorded rather than the exemption re-justified: a gate whose release condition is a future event needs the event checked, not assumed.
+
+**Family-wide test gate:** ≥99 tests per family member — **except APR** (exempt: 84 tests, pre-canonical reference family with no profiles package; the ≥99 floor was set 2026-05-27 *after* APR shipped, and APR's verifier+issuer-kit coverage is the verified-acceptable baseline, not a regression). **ACBR's exemption was LIFTED 2026-09-07** (9 → 196 tests — see the ACBR test-floor note above), so APR is now the only exemption. All other members clear the floor. Baseline 4,164 across all packages (2026-05-27) — **STALE — re-verify by running the suites.**
+
+> **Test-count re-verification (2026-07-06):** all 21 rows re-measured by running every family's test suite and summing the results. 9 rows had drifted from their actual counts and were corrected here: AActR 131→223, AAR 166→217, ACR 168→183, ADR 161→196, ARR 210→217, ALR 155→160, APR 84→89, ASR 391→409, AgTR 110→148. All corrections are pure count growth (more tests added since the promised figure was last written) — none regressed below the floor.
+
+> **Test-count re-verification (2026-06-04):** **all 14 rows re-measured directly** via `npm test` and synced — replacing the prior vague placeholders (ACR/ARR "subset of 579", ADR "99+", AER "90+") and stale counts (ANR 260→268, ABR 373→453, ASR 213→391, and the earlier ATR 175 / APuR 171 / ALR 155 / AIR 465 updates; ATR includes the new countersig_key V17 test). APR/AAR/ATokR were already correct. §6 counts are re-verified on audit.
 
 > **Audit fix H2 (2026-05-17):** pre-canonical specs (ATR/APuR/AER/AAR/ADR) had no budget or test-count promise. Consolidated here. ALR weeks added.
 
@@ -242,7 +267,7 @@ Spec authors: copy the consistency-checklist into your draft's §3.0 ("family in
 
 ## 8. Standalone attestations (non-receipt signed artifacts)
 
-Standalone attestations are signed artifacts that share the canonical `ar.<noun>.v<N>` discriminator family with member receipts but carry **no `claim_type`, no `field_root`, no `subject`, and no v=2 envelope wrapper**. They certify operational state (key continuity, trust scope, issuer self-description) rather than a per-subject event. All standalone attestations:
+Standalone attestations are signed artifacts that share the canonical `ar.<noun>.v<N>` discriminator family with member receipts but carry **no `claim_type`, no body-derived `field_root` of their own, no `subject`, and no v=2 envelope wrapper**. They certify operational state (key continuity, trust scope, issuer self-description, or receipt-binding metadata) rather than a per-subject event. Note: `ar.field_commit.v1` is the first standalone attestation that *references* (does not compute) a receipt's `field_root` and additionally carries a signed `leaf_count`; it does not define its own field tree. All standalone attestations:
 
 - Sign the JCS-canonicalised attestation body with `sig: null` (RFC 8785 canonical JSON; ed25519 over the canonical bytes).
 - Are owned by an `@dekimuhq/anchors-envelope/<subpath>` export so issuer-kits across the family share one primitive surface.
@@ -254,7 +279,7 @@ Two scopes are distinguished:
 | Scope | Meaning | Members |
 |---|---|---|
 | **Per-family** | One attestation per family member, owned by that family's issuer-kit (pins a `family` slug at issue time). | `ar.continuity.v1` (§8.1) |
-| **Family-wide** | One attestation surface shared across all 14 members; not pinned to any one family. Carries no `family` slug. | `ar.trusted_issuers.v1` (§8.2), `ar.issuer_manifest.v1` (§8.3) |
+| **Family-wide** | One attestation surface shared across all 14 members; not pinned to any one family. Carries no `family` slug. | `ar.trusted_issuers.v1` (§8.2), `ar.issuer_manifest.v1` (§8.3), `ar.field_commit.v1` (§8.4) |
 
 ### §8.1 — `ar.continuity.v1` (per-family issuer key-rotation attestation)
 
@@ -262,36 +287,38 @@ Promoted from per-family `<family>.continuity.v1` (ALR / ARR / ANR) to the canon
 
 | Family | Slug (body `family` field) | Continuity flow | Issuer-kit re-export | Notes |
 |---|---|---|---|---|
-| APR | `apr` | **shipped** | `@dekimuhq/apr-issuer-kit` | Re-exports from envelope/continuity. |
-| ACR | `acr` | **shipped** | `@dekimuhq/acr-issuer-kit` | Re-exports from envelope/continuity. |
-| ARR | `arr` | **shipped** | `@dekimuhq/arr-issuer-kit ≥ 0.5.0` | Re-exports `issueContinuityAttestation` + `verifyContinuityAttestation` from envelope subpath. |
-| ALR | `alr` | **shipped** | `@dekimuhq/alr-issuer-kit ≥ 0.2.0` | Re-exports. |
-| ANR | `anr` | **shipped** | `@dekimuhq/anr-issuer-kit ≥ 0.2.0` | Re-exports. |
-| ASR | `asr` | **shipped** | `@dekimuhq/asr-issuer-kit` | Re-exports from envelope/continuity. |
-| ABR | `abr` | **shipped** | `@dekimuhq/abr-issuer-kit` | Re-exports. |
-| AIR | `air` | **shipped** | `@dekimuhq/air-issuer-kit` | Re-exports. |
-| ATokR | `atokr` | **shipped** | `@dekimuhq/atokr-issuer-kit` | Re-exports. |
-| APuR | `apur` | **shipped** | `@dekimuhq/apur-issuer-kit` | Re-exports from envelope/continuity. |
-| ATR | `atr` | **shipped** | `@dekimuhq/atr-issuer-kit` | Re-exports from envelope/continuity. |
-| AER | `aer` | **shipped** | `@dekimuhq/aer-issuer-kit` | Re-exports from envelope/continuity. |
-| AAR | `aar` | **shipped** | `@dekimuhq/aar-issuer-kit` | Re-exports from envelope/continuity. |
-| ADR | `adr` | **shipped** | `@dekimuhq/adr-issuer-kit` | Re-exports from envelope/continuity. |
+| APR | `apr` | **shipped** | `@dekimuhq/apr` (`./issue` subpath) | Re-exports from envelope/continuity. |
+| ACR | `acr` | **shipped** | `@dekimuhq/acr` (`./issue` subpath) | Re-exports from envelope/continuity. |
+| ARR | `arr` | **shipped** | `@dekimuhq/arr` (`./issue` subpath) | Re-exports `issueContinuityAttestation` + `verifyContinuityAttestation` from envelope subpath. |
+| ALR | `alr` | **shipped** | `@dekimuhq/alr` (`./issue` subpath) | Re-exports. |
+| ANR | `anr` | **shipped** | `@dekimuhq/anr` (`./issue` subpath) | Re-exports. |
+| ASR | `asr` | **shipped** | `@dekimuhq/asr` (`./issue` subpath) | Re-exports from envelope/continuity. |
+| ABR | `abr` | **shipped** | `@dekimuhq/abr` (`./issue` subpath) | Re-exports. |
+| AIR | `air` | **shipped** | `@dekimuhq/air` (`./issue` subpath) | Re-exports. |
+| ATokR | `atokr` | **shipped** | `@dekimuhq/atokr` (`./issue` subpath) | Re-exports. |
+| APuR | `apur` | **shipped** | `@dekimuhq/apur` (`./issue` subpath) | Re-exports from envelope/continuity. |
+| ATR | `atr` | **shipped** | `@dekimuhq/atr` (`./issue` subpath) | Re-exports from envelope/continuity. |
+| AER | `aer` | **shipped** | `@dekimuhq/aer` (`./issue` subpath) | Re-exports from envelope/continuity. |
+| AAR | `aar` | **shipped** | `@dekimuhq/aar` (`./issue` subpath) | Re-exports `issueContinuityAttestation` + `verifyContinuityAttestation` from envelope/continuity. |
+| ADR | `adr` | **shipped** | `@dekimuhq/adr` (`./issue` subpath) | Re-exports from envelope/continuity. |
+
+> **Issuer-kit column re-synced 2026-09-02:** the per-family `@dekimuhq/<family>-issuer-kit` packages were consolidated into each family package's `./issue` subpath (2026-06-05); the standalone issuer-kit packages no longer exist. The old version floors (arr ≥0.5.0, alr ≥0.2.0, anr ≥0.2.0, adr ≥0.3.1) referenced the retired packages and are superseded by the consolidated package versions (each package manifest is the authority).
 
 **Wire-format notes:**
 
-- The closed `FamilySlug` union (`apr | acr | arr | alr | atr | apur | aer | aar | adr | anr | asr | abr | air | atokr`) is exported from `@dekimuhq/anchors-envelope/continuity` and matches the 14-member taxonomy locked in `anchors/CLAUDE.md`.
+- The closed `FamilySlug` union (`apr | acr | arr | alr | atr | apur | aer | aar | adr | anr | asr | abr | air | atokr`) is exported from `@dekimuhq/anchors-envelope/continuity` and matches the 14 continuity-participating families (the 7 later members — AActR/AQR/AGR/AGrR/AgTR/APIIR/ACBR — opt out via `continuity: false` in their family manifest).
 - Hard-cut migration applied 2026-05-19 (pre-launch): no legacy `<family>.continuity.v1` parser shipped. The verifier rejects any non-`ar.continuity.v1` `kind` with `kind.invalid`.
 
 ### §8.2 — `ar.trusted_issuers.v1` (family-wide signed allowlist manifest)
 
-**Status:** shipped — `@dekimuhq/anchors-trusted-issuers` (Phase B of the cross-issuer interop plan). Verifier `verifyTrustedIssuersList()` (JCS + ed25519 over `{ ...doc, sig: null }`); append-only hash-chained fixtures.
+**Status:** shipped — `@dekimuhq/anchors-trusted-issuers@0.1.0` (Phase B of the cross-issuer interop plan, `2026-05-19-anchors-cross-issuer-interop.md` §2). Verifier `verifyTrustedIssuersList()` (JCS + ed25519 over `{ ...doc, sig: null }`); append-only hash-chained fixtures ship with the reference implementation.
 
 Family-wide. No `family` slug — one signed list governs trust dispatch for every family member's verifier. Published at `verify.dekimu.com/.well-known/dekimu-trusted-issuers.json`; append-only mirror at `dekimuhq/anchors-trusted-issuers-chain`.
 
 | Surface | Value |
 |---|---|
 | Discriminator | `kind: "ar.trusted_issuers.v1"` |
-| Body shape | `{ issuers: TrustedIssuerRecord[], generated_at, sequence, prev_root \| null }` (sequence + prev_root form an append-only hash chain) |
+| Body shape | `{ kind, version, issued_at, valid_until, publisher, publisher_key, previous_sha256 \| null, issuers: TrustedIssuerRecord[], sig }` (`version` + `previous_sha256` form the append-only hash chain; `issued_at`/`valid_until` bound the validity window) |
 | Signing key | Pinned `BOOTSTRAP_PUBLISHER_KEY` (Dekimu family key in v1); 1-year rotation with 90-day overlap (Q5 decision) |
 | Cadence | Monthly cron re-sign + republish if no manual update in 30 days (`dekimuhq/anchors-trusted-issuers-chain` action) |
 | Consumed by | `verifyIssuerKey` (§5 row 2) via the default `TrustedIssuersSource` implementation |
@@ -301,26 +328,54 @@ Family-wide. No `family` slug — one signed list governs trust dispatch for eve
 - Standalone attestation per §8 invariants (no envelope; JCS + sig: null; ed25519).
 - The `BOOTSTRAP_PUBLISHER_KEY` SPKI is baked into `@dekimuhq/anchors-trusted-issuers` and `@dekimuhq/did-web-resolver`. Rotating it requires a package version bump on every consumer.
 - The federation governance Q4 (rotating chair / multi-sig 2-of-3) is deferred. v1 ships unilateral Dekimu signing; the manifest README links the federation roadmap.
+- **Issuer PQC-migration trust state (2026-06-19, R3 — decision `2026-06-19-anchors-v1-3-r3-issuer-pqc-migration-trust-state.md`):** `TrustedIssuerRecord` gains an **optional** `pqc_mandatory?: { min_sig_alg, mandatory_from } | null` (`PqcMandate`, defined in `did-web-resolver`). Additive — absent ⇒ Ed25519 accepted; existing records/manifests unchanged, no wire change to the list shape. The issuer-level half of the HNDL defense (per-receipt half = envelope `sig_min_alg`): pure policy `issuerPqcRequirement` / `satisfiesIssuerPqc` in `@dekimuhq/anchors-trusted-issuers` (fail-closed on unrecognised `min_sig_alg`). **Enforcement is Phase-2-wired:** the shared family verify pipeline calls an injected `verifyIssuerPqc` hook after issuer-trust resolves to a matched record, deriving the floor-alg from the *verified* `hybrid.validAlgs` (never the self-described `sig_alg`); the hook is composed by `makeVerifyIssuerPqc` in `@dekimuhq/anchors-trusted-issuers`. This reaches **all `defineFamily` families including the 4 "legacy" ones (apr/acr/arr/alr)** — their public `verifyReceipt` forwards `Partial<FamilyVerifyOptions>` (now incl. `verifyIssuerPqc?`) into the shared pipeline via spread, so the "legacy-verifier backport" needed **no source change**; per-family regression tests guard the forwarding. **Phase 2b still deferred:** a quantum-trustworthy `effectiveTime` source (inclusion-proof time; until then `now` = fail-toward-rejection) + PQC list-signing (deferred R2 `SUPPORTED_LIST_SIG_ALGS`).
 
 ### §8.3 — `ar.issuer_manifest.v1` (per-issuer self-published manifest)
 
-**Status:** shipped — `@dekimuhq/anchors-federation` (Phase C of the cross-issuer interop plan). Fetch + verify per-issuer `dekimu-issuer.json` manifests (`fetchIssuerManifest` + `verifyIssuerManifest` + `runHandshake`); consumed by `verify.dekimu.com`'s discovery surface.
+**Status:** shipped — `@dekimuhq/anchors-federation@0.1.0` (Phase C, 2026-05-22).
 
 Family-wide. One manifest per issuer (not per family member): each `did:web` issuer publishes ONE `dekimu-issuer.json` at their own `/.well-known/` path advertising which family memberships they emit, which `claim_type`s they support, which profiles they implement, and a pointer to their `dekimu-keys.json`. Consumed by `verify.dekimu.com` and by cross-issuer handshake tooling.
 
 | Surface | Value |
 |---|---|
 | Discriminator | `kind: "ar.issuer_manifest.v1"` |
-| Body shape | `{ iss, families: FamilySlug[], claim_types: string[], profiles: Record<claim_type, profile[]>, keys_url, generated_at, expires_at }` |
-| Signing key | The issuer's own family key (the one referenced by `keys_url`). Self-attestation; cross-verified via did:web resolution. |
-| Consumed by | `@dekimuhq/anchors-federation`'s `fetchIssuerManifest` + `runHandshake`; `verify.dekimu.com` discovery surface |
+| Body shape | `{ kind, version, issued_at, valid_until, iss, operator: { name, jurisdiction, contact_uri }, key_doc_uri, memberships: [{ family, claim_types, profiles, spec_versions }], trust_anchors: { endorses, endorsed_by }, sig }` |
+| Signing key | The issuer's own family key (the one referenced by `key_doc_uri`). Self-attestation; cross-verified via did:web resolution. |
+| Consumed by | `@dekimuhq/anchors-federation`'s `fetchIssuerManifest` + `verifyIssuerManifest` + `runHandshake`; `verify.dekimu.com` discovery surface |
 | Drift surface | `profile_scope_mismatch` warning when receipts in the wild advertise profiles not declared in this manifest (verifier surfaces; does not auto-reject) |
 
 **Wire-format notes:**
 
 - Standalone attestation per §8 invariants. Same JCS + ed25519 signing primitive as §8.1 / §8.2.
-- The `FamilySlug` union is reused verbatim from `@dekimuhq/anchors-envelope/continuity` — single source of truth for the 14-member taxonomy.
-- `expires_at` is verifier-side advisory; the trusted-issuers allowlist (§8.2) is the authoritative revocation surface. A manifest past `expires_at` MAY be refreshed; a revoked issuer is never trusted regardless of manifest freshness.
+- The `FamilySlug` union is reused verbatim from `@dekimuhq/did-web-resolver` (loose-typed `string`, narrowed by schema validator against the locked 14-member set).
+- `valid_until` is verifier-side advisory (≤90 days from `issued_at`); the trusted-issuers allowlist (§8.2) is the authoritative revocation surface. A manifest past `valid_until` triggers `issuer_manifest_stale` warning; a revoked issuer is never trusted regardless of manifest freshness.
+- `operator` block identifies the legal entity behind the issuer DID (name, jurisdiction, contact URI).
+- `trust_anchors.endorses` / `endorsed_by` are observational metadata for cross-issuer trust discovery; they do NOT confer trust on their own.
+
+### §8.4 — `ar.field_commit.v1` (family-wide receipt-to-field-tree binding attestation)
+
+**Status:** shipped — `@dekimuhq/anchors-envelope/field-commit` (Phase 2 Tier A, 2026-06-01). Spec: `2026-06-01-anchors-v1-4-phase-2-tier-a-disclosure-design.md`.
+
+Family-wide. No `family` slug. Issued by the same key that signed the parent v=2 receipt; binds the receipt `id` to its `field_root` (the Merkle root of all field leaves) and signed `leaf_count` so that a holder can prove selective field disclosure **without presenting the full receipt body**.
+
+| Surface | Value |
+|---|---|
+| Discriminator | `kind: "ar.field_commit.v1"` |
+| Body shape | `{ kind, family, id, field_root, leaf_count, iss_key, issued_at, sig }` — `id` is the parent receipt's `id`; `field_root` is the root hash of the field Merkle tree; `leaf_count` is the total leaf count (required for Merkle position verification) |
+| Signing key | The issuer's own family key (same key as the parent receipt's `iss_key`). Ed25519 over JCS-canonicalised body with `sig: null`. |
+| `field_root` semantics | References the receipt's computed field_root — does NOT define its own field tree. The attestation certifies the binding `id → (field_root, leaf_count)` after the receipt is sealed. |
+| Owned by | `@dekimuhq/anchors-envelope/field-commit` — `issueFieldCommit` + `verifyFieldCommit` helpers |
+| Consumed by | `@dekimuhq/anchors-disclosure` (`buildPresentation`/`assemblePresentation` + `verifyPresentation`) |
+
+**Wire-format notes:**
+
+- Standalone attestation per §8 invariants (no envelope; JCS + `sig: null`; ed25519).
+- `family` field carries the FamilySlug of the parent receipt (same closed union as `ar.continuity.v1`).
+- Leaf preimage convention (shared with `ar.disclosure.v1` presentations): `commit(salt, canonicalize({path, value}))` where `path` is the JSON-pointer field path (e.g. `/purposes/0`) and `value` is the field value. This binds the path into the leaf so disclosure cannot re-order or re-label field values.
+
+**Disclosable adopters:** ACR is native (per-field salted-commitment tree built at mint). Flat-`field_root` families (ANR/ABR/AIR/ALR/ARR) opt in via a `mintXxxV2Disclosable` sibling that builds the per-field tree from the family `DisclosureSchema` (declared in `@dekimuhq/anchors-disclosure/schemas`) + emits `ar.field_commit.v1` + returns the holder seed — additive, shipped flat receipts unaffected and their `mintXxxV2` unchanged. **ANR migrated 2026-06-02** (`ANR_DISCLOSURE_SCHEMA`, leaves `/profile /lang_tag /event_type /jurisdiction`; TSA + disclosable rejected in v0 — re-signing would void the timestamp). **ABR/AIR/ALR migrated 2026-06-02** (identical pattern): `ABR_DISCLOSURE_SCHEMA` (`/profile /incident_correlation_id /event_type /jurisdiction`), `AIR_DISCLOSURE_SCHEMA` (`/air_receipt_id /processing_activity_id /event_type` — AIR has no `profile` in body), `ALR_DISCLOSURE_SCHEMA` (`/profile /artifact_hash /event_at /event_type`); all reject TSA in v0. Note ABR `breach.detected` mandates TSA at the verifier, so a disclosable detected receipt cannot also be fully verified — use a non-mandatory event or the flat path. **ARR migrated 2026-06-02** (the special case): two sibling mints `mintArrV2SingleDisclosable` + `mintArrV2BatchDisclosable`, each pairing with `ARR_SINGLE_DISCLOSURE_SCHEMA` (`/profile /target_kind /trigger /event_at`) or `ARR_BATCH_DISCLOSURE_SCHEMA` (`/profile /batch_event_kind /target_kind /event_at`). The disclosable mints discard ARR's subset-hash `field_root` and rebuild a per-field Merkle tree, so the single/batch body split is the only divergence. One seed per mint call — a batch is a single receipt with one field tree over its body (not per-target), so per-call seeds already give cross-receipt unlinkability (L20). `DisclosureSchema.claim_type` is documentary (unenforced by `verifyPresentation`), so the single schema spans all 5 single kinds. **Flat-family migration COMPLETE — all of ANR/ABR/AIR/ALR/ARR adopted.**
+
+> **Phase 2 Tier A addition (2026-06-01):** §8 extended to seat `ar.field_commit.v1` as the first standalone attestation that *references* (does not compute) a receipt's `field_root`. The `field_root` invariant in the §8 intro was generalised from "carry no `field_root`" to "carry no *body-derived* `field_root` of their own" — `ar.field_commit.v1` references the parent receipt's field_root without defining one independently.
 
 > **Cross-issuer interop addition (2026-05-19, plan-approved):** §8 generalised from "`ar.continuity.v1` — family-shared issuer key-rotation attestation" to "Standalone attestations (non-receipt signed artifacts)" to seat `ar.trusted_issuers.v1` (Phase B) and `ar.issuer_manifest.v1` (Phase C) alongside the existing continuity attestation. No wire-format changes; this is the doc-only prerequisite gate cleared before Phase A of the cross-issuer interop plan touches code.
 
@@ -351,7 +406,7 @@ Added in envelope 0.13.0 (2026-05-21). Decision: `2026-05-21-countersig-key-enve
 
 - `countersig_key` is **signed-in**. The issuer commits to the countersigner identity at issuance time. Mutating it post-sign invalidates the issuer's Ed25519 signature.
 - `countersig` remains **signed-out**. The countersigner signs the same `preSigCanonical` bytes as the issuer (signed-out fields `anchor`, `sig`, `countersig`, `tsa` zeroed to `null`).
-- The field follows the same `ed25519:<base64url>` prefix convention as `iss_key`, providing algorithm agility for future post-quantum (ML-DSA) migration.
+- The field follows the same `<alg>:<base64url>` prefix convention as `iss_key` (the `IssuerKeyRef` union). Algorithm agility is provided by the v1.3 `sig_alg` discriminator (signed-in, closed enum) + the `SIG_VERIFIERS` dispatch registry. **Phase 2 (2026-06-04):** `SIG_ALGS = ["ed25519", "ml-dsa-65"]` — `ml-dsa-65` (FIPS 204) registered via native `node:crypto` on Node ≥24.6 (no third-party crypto; `liboqs` withdrawn). `ml-dsa-65` keys are the raw 1952 B public key, `ml-dsa-65:<b64url>`. `slh-dsa-sha2-128s` + hybrid `sig2` remain spec-only/deferred. See `2026-05-31-anchors-v1-3-sig-alg-envelope-amendment.md` + decision `2026-06-04-anchors-v1-3-ml-dsa-65-ratification.md`.
 - Optional on every family member — absent on all pre-0.13.0 receipts. No family member mandates countersignatures in v1.
 
 | State | `countersig_key` | `countersig` | Verifier outcome |
@@ -362,6 +417,62 @@ Added in envelope 0.13.0 (2026-05-21). Decision: `2026-05-21-countersig-key-enve
 | Full verification | present | present | Ed25519 cryptographic verification of countersig against `countersig_key` |
 
 **Planned consumer:** EUDI Wallet integration (subject countersigns consent/notice receipts). No family member ships EUDI support in v1; the field is the forward-compatible prerequisite.
+
+---
+
+## 11. Cross-sibling QTS upgrade (`qts_attestation_hash`)
+
+Every body variant across all 14 families carries an optional nullable field:
+
+```
+qts_attestation_hash: string | null
+```
+
+**Semantics:** SHA-256 hash of an `ar.attestation.v1` receipt with `body.service_type = qts` (Qualified Timestamp Service). When present, the receipt's timestamp is considered *qualified* under eIDAS rather than merely RFC 3161.
+
+**Wire rules:**
+- Nullable: `null` when no QTS attestation is referenced.
+- Additive: existing receipts without this field are valid (field is `undefined` at runtime on pre-upgrade wire data; validators accept this).
+- No structural validation at verification time. Format validation happens at compose time when resolving the referenced AAR receipt (separate concern).
+
+**Mint default:** `null` when not provided by the caller.
+
+**Reference implementation:** ATR `transfer` event body (shipped in v1.0).
+
+**Verification-time resolution:** Out of scope for the field addition. Resolution follows the same `resolveReceiptById` compose pattern used by AIR→AER cross-family composition.
+
+| Family | Placement |
+|--------|-----------|
+| APR | `APRBody` (single interface) |
+| ACR | `ACRReceipt` (single interface) |
+| ARR | `ARRReceipt` + `ARRBatchReceipt` |
+| ALR | `AlrBodyBase` (inherited by 4 variants) |
+| ANR | `AnrBodyBase` (inherited by 6 variants) |
+| ASR | `AsrBodyBase` (inherited by 9 variants) |
+| ABR | `AbrBodyBase` (inherited by 8 variants) |
+| AIR | `AirBodyBase` (inherited by 11 variants) |
+| ATokR | 4 standalone variant interfaces |
+| AER | 2 standalone variant interfaces |
+| AAR | 2 standalone variant interfaces |
+| ADR | 6 standalone variant interfaces |
+| APuR | 3 standalone variant interfaces |
+| ATR | 4 standalone variant interfaces (`transfer` had it already) |
+
+The 7 post-14 families do NOT carry `qts_attestation_hash` — excluded by design, not a table-update gap (verified in source 2026-09-02; mirrors §4's per-family exclusion pattern):
+
+AActR does NOT carry `qts_attestation_hash` — an autonomous action receipt has no eIDAS qualified-timestamp upgrade surface in v1.
+
+AQR does NOT carry `qts_attestation_hash` — a quality-eval receipt is point-in-time provenance with no qualified-timestamp requirement.
+
+AGR does NOT carry `qts_attestation_hash` — a guard verdict has no qualified-timestamp requirement.
+
+AGrR does NOT carry `qts_attestation_hash` — a grounding receipt has no qualified-timestamp requirement.
+
+AgTR does NOT carry `qts_attestation_hash` (both `ar.trace.v1` and `ar.trace.v2`) — an agent-trace has no qualified-timestamp requirement.
+
+APIIR does NOT carry `qts_attestation_hash` — a redaction receipt has no qualified-timestamp requirement.
+
+ACBR does NOT carry `qts_attestation_hash` — a compliance bundle references constituent receipts; any QTS anchoring lives on the constituents, never on the bundle.
 
 ---
 
