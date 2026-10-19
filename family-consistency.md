@@ -36,6 +36,7 @@ Canonical chip ordering. Each chip represents one family member's filter on the 
 | 18 | AGrR | `ar.grounding.v1` | shipped | Anchored Grounding Receipts — RAG citation-binding + grounding-support provenance (binding authoritative, score advisory; provenance not truth). null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. Spec: [grounding/v1.md](grounding/v1.md) |
 | 19 | AgTR | `ar.trace.v1` | shipped | Anchored Agent-Trace Receipts — per-run execution provenance (provenance not behavior). 1 profile (`agent.trace`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from AActR (single action vs whole run). Spec: [trace/v1.md](trace/v1.md) |
 | 20 | APIIR | `ar.redaction.v1` | build-to-ready (packages not yet published) | Anchored PII-Redaction Receipts — proves which PII-redaction pass ran before model send (provenance of redaction, NOT a PII-free guarantee). 1 profile (`redaction.prompt`); per-category counts + dual salted commits + `ruleset_hash`; reversible map+salt controller-only, never anchored; null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL. DISTINCT from ATokR and `ar.anonymization.v1`. Spec: [redaction/v1.md](redaction/v1.md) |
+| 21 | ACBR | `ar.compliance.v1` | shipped (published 2026-06-21) | Anchored Compliance Bundle Receipts — workspace-level Proof-of-Compliance snapshot (RoPA + DPIA + obligation-satisfaction references by content hash; references constituents, never re-derives compliance). 1 profile (`compliance.bundle`); null-subject (must-be-null); Status-List non-consumer; TSA OPTIONAL (upgrade path `free`); continuity false. Spec: [compliance/v1.md](compliance/v1.md) |
 
 > **Audit fix H4 (2026-05-17):** ANR/ABR/ASR/AIR specs had previously claimed chip positions 6/7/8/9, which collided with AER (positions 4–9 unassigned). This table replaces all per-spec chip-position claims. Member specs SHOULD NOT redeclare chip position; they reference this table instead.
 
@@ -90,6 +91,7 @@ Per-event TSA (eIDAS RFC 3161 trusted timestamp) requirement. The v1.1 envelope 
 | AGrR | (any) | OPTIONAL | No regulatory clock starts on a grounding receipt; trusted timestamp is opt-in. |
 | AgTR | (any) | OPTIONAL | No regulatory clock starts on an agent-trace event; trusted timestamp is opt-in. |
 | APIIR | (any) | OPTIONAL | No regulatory clock starts on a redaction pass; trusted timestamp is opt-in. |
+| ACBR | (any) | OPTIONAL | No regulatory clock starts on a compliance bundle receipt; trusted timestamp is opt-in (upgrade path `free`). |
 
 > **Audit fix H7 (2026-05-17):** prior to this table, TSA mandate language varied across closure specs (ABR mandated on `breach.detected`, ASR recommended on `request.received`, AIR recommended on `dpia.completed` — without a principled rule). This table applies a single rule (regulatory-clock-start ⇒ MANDATORY; deadline-checks ⇒ RECOMMENDED; else OPTIONAL). Member specs reference this table; per-spec mandate language MUST match.
 
@@ -128,6 +130,7 @@ Each family member declares whether the `subject` envelope field is `null`, popu
 | AGrR | (every receipt) | `null` (must-be-null) | Grounding receipt is about a RAG answer + sources, not a data subject |
 | AgTR | (every receipt) | `null` (must-be-null) | Agent-trace is about an execution run, not a data subject |
 | APIIR | (every receipt) | `null` (must-be-null) | Redaction is about a prompt/content blob, not a data subject; the redacted content is bound via salted body commits, never the envelope subject |
+| ACBR | (every receipt) | `null` (must-be-null) | Compliance bundle is workspace-level; constituents reference data subjects by hash in their own receipts |
 
 > **Audit fix H10 (2026-05-17):** consolidates subject-presence rules. Member-spec D10 deltas SHOULD reference this table rather than re-declaring rules. Subject-parity invariants between specs (e.g. ASR↔ARR Art. 17) cross-check this table's salted-commit form (`"sha256:<hex>"`).
 
@@ -166,6 +169,8 @@ AGrR also does NOT consume Status List 2021 (`status_list_slot: null`) — a gro
 AgTR also does NOT consume Status List 2021 (`status_list_slot: null`) — an agent-trace is a point-in-time execution record; supersede with a newer receipt, never revoke.
 
 APIIR also does NOT consume Status List 2021 (`status_list_slot: null`) — a redaction receipt is a point-in-time provenance fact; supersede with a newer receipt, never revoke.
+
+ACBR also does NOT consume Status List 2021 (`status_list_slot: null`) — a compliance bundle receipt is a point-in-time provenance snapshot; supersede with a newer receipt to reflect updated compliance state, never revoke.
 
 > **Audit fix H5 (2026-05-17):** consolidates per-spec ordering claims that conflicted (multiple specs claimed "Nth"). This table is the canonical sequence; member specs reference it instead of declaring their own ordinal.
 

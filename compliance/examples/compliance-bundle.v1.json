@@ -1,0 +1,96 @@
+{
+  "v": 2,
+  "id": "01M5A9F0Z3A2T4YDHA78000000",
+  "iat": "2026-10-19T14:36:18.275Z",
+  "iat_ms": 1792420578275,
+  "claim_type": "ar.compliance.v1",
+  "iss": "did:web:example.com",
+  "iss_key": "ed25519:_RckOFqgx1tk-3jNYC-h2ZH96_drE8WO1wLqyDXp9hg",
+  "subject": null,
+  "exp": null,
+  "prev": null,
+  "policy_uri": null,
+  "policy_hash": null,
+  "policy_version": null,
+  "kind": "observation",
+  "cause": null,
+  "predicate": null,
+  "tsa": null,
+  "credentialStatus": null,
+  "anchor": {
+    "log": "https://verify.dekimu.com/compliance/v1",
+    "leaf_index": 0,
+    "inclusion_proof": [],
+    "tree_head_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "tree_size": 1,
+    "log_time": "2026-06-20T10:00:00Z"
+  },
+  "sig": "Iik2my-to0QD9D6idVr_yIWNQC6-gsZe2RcwwS_lf_ViMT-tgKyOg0QmfX_htOGnsPZhZeok4pGDmk1vbidvAg",
+  "countersig": null,
+  "body": {
+    "profile": "compliance.bundle",
+    "workspaceId": "ws_example",
+    "controller": {
+      "entityName": "Example Controller",
+      "registeredAddress": null,
+      "contactEmail": null
+    },
+    "regulation": {
+      "manifestId": "gdpr",
+      "manifestVersion": "1.2.0",
+      "manifestHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "coverage": {
+      "applicable": 8,
+      "satisfied": 8,
+      "ratio": 1
+    },
+    "constituents": {
+      "ropa": {
+        "ref": "ropa:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "contentHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "satisfiedObligations": [
+          "gdpr.records"
+        ]
+      },
+      "dpia": {
+        "status": "not_applicable",
+        "reason": "no high-risk processing",
+        "basis": "engine:gdpr.dpia=not-applicable"
+      },
+      "obligations": {
+        "ref": "report",
+        "contentHash": "sha256:852f8f53e405ea6f684950452ea7315205c1863c0c02fc08878da550df7e29be",
+        "satisfiedObligations": [
+          "gdpr.records",
+          "gdpr.lawful_basis",
+          "gdpr.transparency",
+          "gdpr.security",
+          "gdpr.breach_notification",
+          "gdpr.dpo",
+          "gdpr.subject_rights",
+          "gdpr.retention"
+        ],
+        "embedded": {
+          "kind": "compass.passport.public",
+          "manifestId": "gdpr",
+          "manifestVersion": "1.2.0",
+          "applicable": 8,
+          "satisfied": 8,
+          "obligations": [
+            "gdpr.records",
+            "gdpr.lawful_basis",
+            "gdpr.transparency",
+            "gdpr.security",
+            "gdpr.breach_notification",
+            "gdpr.dpo",
+            "gdpr.subject_rights",
+            "gdpr.retention"
+          ]
+        }
+      }
+    },
+    "generated_at": "2026-06-20T10:00:00Z",
+    "field_root": "sha256:826bdb56ec0a5cd70c7a134f2f860697f9b421ad26e08432338cc28f12d2b43f"
+  }
+}
