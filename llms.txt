@@ -1,6 +1,6 @@
 # Anchored Receipts — Specification
 
-> A standards-track family of 21 signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, compliance, and autonomous-action events. Each receipt is independently verifiable — anyone can confirm what happened, when, and against which version, without trusting the issuer. Spec is CC0 1.0 (public domain); reference implementations are Apache 2.0. Maintained by Dekimu (github.com/dekimuhq).
+> A standards-track family of 21 signed, Merkle-anchored receipt formats (29 `claim_type` discriminators) for provenance, consent, retention, lineage, compliance, and autonomous-action events. Each receipt is independently verifiable — anyone can confirm what happened, when, and against which version, without trusting the issuer. Spec is CC0 1.0 (public domain); reference implementations are Apache 2.0. Maintained by Dekimu (github.com/dekimuhq).
 
 ## Start here
 
@@ -26,6 +26,11 @@
 - [ADR — Anchored Delegation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/adr/): `ar.delegation.v1`.
 - [ATokR — Anchored Tokenization Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/atokr/): `ar.tokenization.v1`.
 - [AActR — Anchored Action Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/action/v1.md): `ar.action.v1` — an autonomous action an agent/automation executed on a workspace's behalf, optionally bound to the authorizing agent credential.
+- [AQR — Anchored Quality Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/quality/v1.md): `ar.quality.v1` — an evaluation suite was run against a specific output or software version and produced a scored result; evaluation provenance, not verified truth.
+- [AGR — Anchored Guard Verdicts](https://github.com/dekimuhq/anchors-spec/blob/main/guard/v1.md): `ar.guard.v1` — a deterministic prompt-injection / input-screening pass ran and reached a verdict; provenance of screening, not a safety guarantee.
+- [AGrR — Anchored Grounding Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/grounding/v1.md): `ar.grounding.v1` — citation binding and grounding-support provenance for a RAG answer; binding authoritative, score advisory.
+- [AgTR — Anchored Agent-Trace Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/trace/v1.md): `ar.trace.v1` (flat stage list) / [`ar.trace.v2`](https://github.com/dekimuhq/anchors-spec/blob/main/trace/v2.md) (OTel-compatible signed span tree with a Merkle `spans_root`) — how an agent run executed; execution provenance, not verified behavior.
+- [APIIR — Anchored PII-Redaction Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/redaction/v1.md): `ar.redaction.v1` — which PII-redaction pass ran over content before a model send; provenance of redaction, not a PII-free guarantee.
 - [ACBR — Anchored Compliance Bundle Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/compliance/v1.md): `ar.compliance.v1` — a workspace-level Proof-of-Compliance snapshot: RoPA register + DPIA receipts + obligation-satisfaction report referenced by content hash, with honest gap / not-applicable declarations; references constituents, never re-derives compliance.
 
 ## Conventions

@@ -1,0 +1,21 @@
+{
+  "note": "Per-span detail + salts that reproduce body.spans_root (test values — never reuse salts in production). leaf_i = commit(salt_i, canonicalize({ path: span_id, value: detail })); spans_root = RFC 6962 Merkle root over leaves in spans[] order.",
+  "detail": {
+    "1111111111111111": {
+      "stage": "execute"
+    },
+    "2222222222222222": {
+      "model": "example-model",
+      "tokens": 812
+    }
+  },
+  "salts": {
+    "1111111111111111": "BwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwc",
+    "2222222222222222": "CwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCws"
+  },
+  "leaves": [
+    "sha256:c1b991f02b24ba789ac5a3f0ea6012f2f2baa67ca3f651099abcd0de2e1eb27e",
+    "sha256:aa506cba10038fce63bb1a07ae4887af2dca82df47546d586614d2fbb8e7ce1d"
+  ],
+  "spans_root": "sha256:82325b08c591dea4da6ef43a67bc5be1d2db244def06ae1bad3fa29c695001af"
+}
