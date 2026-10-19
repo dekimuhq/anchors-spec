@@ -74,4 +74,7 @@ Reference implementations are licensed separately under Apache 2.0.
 - **Verify a receipt live:** [verify.dekimu.com](https://verify.dekimu.com)
 - **MCP server (mint & verify receipts):** [dekimu-mcp](https://github.com/dekimuhq/dekimu-mcp)
 - **Policy for agent actions:** [agents-txt](https://github.com/dekimuhq/agents-txt)
-- **Who builds this:** [Dekimu](https://dekimu.com) — EU-first compliance & agent-trust tooling.
+
+## Part of the Dekimu ecosystem
+
+Built and maintained by [Dekimu](https://dekimu.com). The Dekimu ecosystem — [Dekimu Hub](https://app.dekimu.com) and the public verifier at [verify.dekimu.com](https://verify.dekimu.com) — is the reference implementation for this project. Sibling projects: [dekimu-mcp](https://github.com/dekimuhq/dekimu-mcp) · [agents.txt](https://github.com/dekimuhq/agents-txt) · [regulation-as-code](https://github.com/dekimuhq/regulation-as-code) · [claude-memory](https://github.com/dekimuhq/claude-memory). All of them: https://dekimu.com/open-source.
