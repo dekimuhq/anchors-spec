@@ -1,0 +1,11 @@
+{
+  "kind": "forget.destruction.v1",
+  "alg": "Ed25519",
+  "subjectKeyIdHash": "99839d0fd18093817a625092e811ef9197f85c6f2bd4dc8f471d654925271795",
+  "kekKeyId": "kek-prod",
+  "destroyedAt": "2026-06-06T01:00:00Z",
+  "priorRosterRoot": "ff9ee517f7213e2d34a6898ff7a50f531740c2bc518169821d224edeea8644f4",
+  "newRosterRoot": "e8d0dd9a547903a9d9912151f5a450b7293d58b35ec94c58e58dcc2d046e2b61",
+  "signerKeyId": "sign-1",
+  "signature": "QrpEReGoZm7pnQbdYvnQByNXAzprfI7SHaInDHOskTAQQBNrXJoMPD87M7vBaGKLSGA-k9RdBBE59q0Ei9qBDQ"
+}

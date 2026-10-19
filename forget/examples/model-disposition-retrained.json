@@ -1,0 +1,68 @@
+{
+  "receipt": {
+    "kind": "forget.model-disposition.v1",
+    "alg": "Ed25519",
+    "subjectKeyIdHash": "683c0dc692428d4c26826ffcf3dd02bca46f804534432c65c0a1bb7480351cba",
+    "destructionClaimId": "forget:683c0dc692428d4c26826ffcf3dd02bca46f804534432c65c0a1bb7480351cba:2222222222222222222222222222222222222222222222222222222222222222",
+    "disposition": "retrained",
+    "rationale": "retrained excluding the subject",
+    "trainingRootBefore": "d513f33e9f8c7ef566491c0a75e7881c594d4f0471c67bc28640b4fc2e636472",
+    "trainingRootAfter": "fcf6a98bb829a9666a37ad333eee2a54aec3b3404d7a13ac3e0f8cbc7ae6b1eb",
+    "disposedAt": "2026-06-30T02:00:00Z",
+    "signerKeyId": "sign-key-1",
+    "signature": "aLHOclNmowBBh0FhkdeMZHBDCVIpXBISZL5fXPfhEzXGzrm8lnTjPRZBqTRX-ADVX33auOv60MLucaQ2ESssAQ"
+  },
+  "evidence": {
+    "trainingAfterSignedRoot": {
+      "kind": "forget.roster.v1",
+      "alg": "Ed25519",
+      "keyId": "sign-key-1",
+      "signature": "hFozCobrtLEM6dlqPCO70TX2_7gbHS7mVQ9isobjGhPJ3TpVzQ0-yoSeyoqF_-oQ8ZWU6OvylQ1JqbBMAmvjCQ",
+      "root": "fcf6a98bb829a9666a37ad333eee2a54aec3b3404d7a13ac3e0f8cbc7ae6b1eb",
+      "leafCount": 3,
+      "generatedAt": "2026-06-30T01:00:00Z",
+      "prevRoot": "d513f33e9f8c7ef566491c0a75e7881c594d4f0471c67bc28640b4fc2e636472"
+    },
+    "nonInclusionAfter": {
+      "lo": "675d5e7f54f07669d73fc4d121e97fccc879a24466a99c651553dd22035569c8",
+      "hi": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "inclusion": {
+        "siblings": [
+          {
+            "hash": "dc1bebe71309d543b5ab0d7956a6f77ced797b14f1ec2127558b0de3d76c8c6d",
+            "side": "L"
+          }
+        ]
+      }
+    },
+    "trainingBeforeSignedRoot": {
+      "kind": "forget.roster.v1",
+      "alg": "Ed25519",
+      "keyId": "sign-key-1",
+      "signature": "nOXReRC19w6BwtQGfR-FrZQs72nP8g61CiSZwg1G9_MORhYJOJbzH7JQUYV33NbVruDzil70tAHbT8XFyy7ODg",
+      "root": "d513f33e9f8c7ef566491c0a75e7881c594d4f0471c67bc28640b4fc2e636472",
+      "leafCount": 4,
+      "generatedAt": "2026-06-30T00:00:00Z",
+      "prevRoot": null
+    },
+    "membershipBefore": {
+      "lo": "683c0dc692428d4c26826ffcf3dd02bca46f804534432c65c0a1bb7480351cba",
+      "hi": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "inclusion": {
+        "siblings": [
+          {
+            "hash": "4aa51835b31352a419595329d24490e13f26080835def3668c9cca13c057ab74",
+            "side": "L"
+          },
+          {
+            "hash": "dc1bebe71309d543b5ab0d7956a6f77ced797b14f1ec2127558b0de3d76c8c6d",
+            "side": "L"
+          }
+        ]
+      }
+    }
+  },
+  "signerPublicKeys": {
+    "sign-key-1": "ea4a6c63e29c520abef5507b132ec5f9954776aebebe7b92421eea691446d22c"
+  }
+}

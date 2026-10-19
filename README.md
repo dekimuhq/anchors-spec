@@ -47,6 +47,14 @@ Workspace-level evidence assembly. Same `ar.<noun>.v<N>` wire form and envelope;
 |---------|-----------|------|-------------|
 | ACBR | `ar.compliance.v1` | Anchored Compliance Bundle Receipts | [Full spec](compliance/v1.md) |
 
+### Companion receipt specs (not `ar.*` families)
+
+Standalone, by-value signed receipts that compose with the family but carry no `claim_type`, no envelope, and no chip.
+
+| Wire kinds | Name | Spec status |
+|------------|------|-------------|
+| `forget.roster.v1` / `forget.destruction.v1` / `forget.model-disposition.v1` | Proof of Forgetting — checkable GDPR Art. 17 erasure (signed destruction receipt + Merkle non-inclusion against a signed roster, optional model-dimension disposition) | [Full spec](forget/SPEC.md) |
+
 ## Cross-Family Documents
 
 - [Registry](registry.md) — canonical `claim_type` discriminator registry

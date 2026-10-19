@@ -1,0 +1,11 @@
+{
+  "kind": "forget.model-disposition.v1",
+  "alg": "Ed25519",
+  "subjectKeyIdHash": "99839d0fd18093817a625092e811ef9197f85c6f2bd4dc8f471d654925271795",
+  "destructionClaimId": "forget:99839d0fd18093817a625092e811ef9197f85c6f2bd4dc8f471d654925271795:e8d0dd9a547903a9d9912151f5a450b7293d58b35ec94c58e58dcc2d046e2b61",
+  "disposition": "not_trained",
+  "rationale": "no model training/fine-tuning pipeline; data never used to train any model",
+  "disposedAt": "2026-06-30T12:00:00Z",
+  "signerKeyId": "sign-1",
+  "signature": "CPurcjcwGjpTSdDnboD1V0V8dM7PG23VM3kiEOJosXrouQ2NtPE0HtpsVpTDOl4WGnDlKL56jeoJzCPn6CeTAw"
+}
