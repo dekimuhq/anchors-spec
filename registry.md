@@ -115,6 +115,18 @@ Standalone attestations are **not** part of the envelope `claim_type` union and 
 
 ---
 
+## Companion receipt specs (not `ar.<noun>.v<N>` families)
+
+Companion receipts are standalone Ed25519-signed JSON objects with their own `kind` discriminator. They carry **no `claim_type`, no `field_root`, no `subject`, no v=2 envelope, no chip, and no anchor-log inclusion**; they are verified **by value** (the holder presents the object, the verifier recomputes the signed view against a trust-anchored key). They are **not** in the envelope `claim_type` union, not in the v1.2 `kind`/`predicate` matrix, and not in the continuity `FamilySlug` taxonomy. They compose with family receipts through body-level references listed in [`CROSS-REFERENCES.md` §2](CROSS-REFERENCES.md#2-cross-family-composition-refs-body-level-pointers-verifier-coordinated).
+
+| `kind` | Purpose | Spec | Reference implementation | Status |
+|---|---|---|---|---|
+| `forget.roster.v1` | Signed root of the interval-leaf Merkle roster of subjects an issuer currently holds (`root` + `leafCount` + `prevRoot` signed in); the base for membership and non-inclusion proofs | [forget/SPEC.md §3](forget/SPEC.md) | private for now | v1 frozen 2026-10-19 |
+| `forget.destruction.v1` | Signed record that a subject's data-encryption key was destroyed, committing to the roster root before (subject present) and after (subject absent) — GDPR Art. 17 erasure evidence; verifiable by value at verify.dekimu.com | [forget/SPEC.md §4](forget/SPEC.md) | private for now | v1 frozen 2026-10-19 |
+| `forget.model-disposition.v1` | Signed statement of how the subject's data was handled in the model dimension (`not_trained` / `scoped_exclusion` / `retrained` / `unlearned`), bound to a destruction receipt; training-set non-inclusion evidence required for `retrained` / `unlearned` | [forget/SPEC.md §5](forget/SPEC.md) | private for now | v1 frozen 2026-10-19 |
+
+---
+
 ## Maintenance
 
 When adding a new `claim_type`:

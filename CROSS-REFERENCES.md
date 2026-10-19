@@ -77,6 +77,8 @@
 | `body.arr_ref` | `ar.tokenization.v1` *(event: `token.revoked`)* | `ar.erasure.v1` | Optional. When token revocation co-occurs with Art. 17 erasure of the underlying plaintext, ATokR references the ARR receipt. | ATokR decision doc §1 |
 | `body.alr_ref` | `ar.tokenization.v1` *(event: `token.issued`, `token.rotated`)* | `ar.lineage.v1` | Optional. When the tokenized value flows through a pipeline, ATokR references the ALR receipt anchoring the lineage. | ATokR decision doc §1 |
 | `body.apur_ref` | `ar.tokenization.v1` *(any event)* | `ar.purpose.v1` | Optional. Purpose declared in ATokR scope; APuR purpose binding is the durable record. | ATokR decision doc §1 |
+| *(destruction claim id or embedded receipt)* | `ar.erasure.v1` | **`forget.destruction.v1`** *(companion receipt, by value — not a `claim_type`)* | Optional. An anchored erasure event points at the checkable state proof: the destruction claim id `forget:<subjectKeyIdHash>:<newRosterRoot>` or the full receipt. The anchored receipt supplies trusted time + chain; the `forget.*` bundle supplies the non-inclusion evidence. Resolved by value after envelope checks, per forget/SPEC.md §6. | [forget/SPEC.md §8](forget/SPEC.md) |
+| `body.execution_ref` → *(destruction claim id)* | `ar.subject_rights.v1` *(profile `art17.erasure_request`)* | `ar.erasure.v1` → **`forget.destruction.v1`** | Optional, transitive. Request → logged execution → checkable state: the ASR receipt references the ARR execution, which references the destruction claim id. | [forget/SPEC.md §8](forget/SPEC.md) |
 
 **Verifier invariants for cross-family refs:**
 

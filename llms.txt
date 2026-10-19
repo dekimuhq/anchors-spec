@@ -26,6 +26,7 @@
 - [ADR — Anchored Delegation Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/adr/): `ar.delegation.v1`.
 - [ATokR — Anchored Tokenization Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/atokr/): `ar.tokenization.v1`.
 - [AActR — Anchored Action Receipts](https://github.com/dekimuhq/anchors-spec/blob/main/action/v1.md): `ar.action.v1` — an autonomous action an agent/automation executed on a workspace's behalf, optionally bound to the authorizing agent credential.
+- [Proof of Forgetting — forget.* companion receipts](https://github.com/dekimuhq/anchors-spec/blob/main/forget/SPEC.md): `forget.roster.v1` / `forget.destruction.v1` / `forget.model-disposition.v1` — NOT an `ar.*` family; standalone by-value signed receipts making a GDPR Art. 17 erasure checkable (signed destruction receipt + Merkle non-inclusion proof against a signed roster; optional model-dimension disposition).
 
 ## Conventions
 

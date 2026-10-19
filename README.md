@@ -39,6 +39,14 @@ Receipt formats for autonomous-agent and AI-pipeline events. They share the same
 | AgTR | `ar.trace.v1` / `ar.trace.v2` | Anchored Agent-Trace Receipts | [Full spec](trace/v1.md) |
 | APIIR | `ar.redaction.v1` | Anchored PII-Redaction Receipts | [Full spec](redaction/v1.md) |
 
+### Companion receipt specs (not `ar.*` families)
+
+Standalone, by-value signed receipts that compose with the family but carry no `claim_type`, no envelope, and no chip.
+
+| Wire kinds | Name | Spec status |
+|------------|------|-------------|
+| `forget.roster.v1` / `forget.destruction.v1` / `forget.model-disposition.v1` | Proof of Forgetting — checkable GDPR Art. 17 erasure (signed destruction receipt + Merkle non-inclusion against a signed roster, optional model-dimension disposition) | [Full spec](forget/SPEC.md) |
+
 ## Cross-Family Documents
 
 - [Registry](registry.md) — canonical `claim_type` discriminator registry

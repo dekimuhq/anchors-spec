@@ -1,0 +1,10 @@
+{
+  "kind": "forget.roster.v1",
+  "alg": "Ed25519",
+  "keyId": "roster-1",
+  "signature": "s28RprLEhan6BsQYBhzwfyJ5ngCIoDPsMxQn_t6gQ6nc5pQw733GyGPJFVV5ARJ78KPERd-A6vsTFuq9uEJEAQ",
+  "root": "e8d0dd9a547903a9d9912151f5a450b7293d58b35ec94c58e58dcc2d046e2b61",
+  "leafCount": 3,
+  "generatedAt": "2026-06-06T01:00:00Z",
+  "prevRoot": "ff9ee517f7213e2d34a6898ff7a50f531740c2bc518169821d224edeea8644f4"
+}
