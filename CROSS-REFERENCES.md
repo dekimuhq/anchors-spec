@@ -5,7 +5,7 @@
 1. **Chain `prev`** — an envelope-level `prev: sha256:<hex>` field linking same-claim_type receipts into a cryptographic chain. Verifier walks forward from a chain head; tampering with any link invalidates the rest.
 2. **Cross-family ref** — a body-level field carrying another receipt's `id`. Not a cryptographic chain — a verifier composition pointer. Reference resolution is verifier-coordinated, not signature-mandated.
 
-**Plan source:** 2026-05-16-anchors-v1-1-hardening-plan.md — Delta E (Phase 0, Task H2).
+**Plan source:** `2026-05-16-anchors-v1-1-hardening-plan.md` — Delta E (Phase 0, Task H2).
 
 **Companion file:** [registry.md](registry.md) — claim_type discriminator authority. Update both files together.
 
@@ -90,7 +90,7 @@
 
 ## 3. Status List 2021 cross-family flips (v1.1)
 
-Status List bit-flipping is published by the `verify.dekimu.com` worker (outside this matrix — see the worker contract in the v1.1 hardening plan). Trigger conditions:
+Status List bit-flipping is published by `verify.dekimu.com` worker (outside this plan — see worker contract in v1.1 hardening plan). Trigger conditions:
 
 | Successor receipt | Predecessor whose Status List bit flips | Status semantic |
 |---|---|---|
@@ -124,11 +124,11 @@ Verifiers resolve in this order (fail-fast):
 2. **Anchor proof** — RFC 6962 Merkle inclusion in the published log.
 3. **TSA timestamp** (if profile mandates) — RFC 3161 signature + trust-anchor chain.
 4. **`prev` chain walk** (if present) — predecessor in anchor log, same `iss`, subject continuity.
-5. **`policy_uri` + `policy_hash` + `policy_version`** — per-claim-type policy matrix (v1.1 hardening §C).
+5. **`policy_uri` + `policy_hash` + `policy_version`** — per-claim-type policy matrix (v1.1 hardening plan §C).
 6. **`credentialStatus`** — fetch + decode Status List 2021; reconcile with chain (chain wins per v1.1 spec §6.4 reconciliation rules).
 7. **Cross-family composition refs** — profile-mandated only; resolver in `@dekimuhq/anchors-envelope` calls into sibling verifier packages.
 
-A v=2 receipt that fails any step returns the canonical error code (see the v1.1 hardening spec §8 error taxonomy).
+A v=2 receipt that fails any step returns the canonical error code (see v1.1 hardening spec §8 error taxonomy).
 
 ---
 

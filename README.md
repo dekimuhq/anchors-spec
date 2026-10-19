@@ -1,6 +1,6 @@
 # Anchored Receipts — Specification
 
-Specification documents for the **Anchored Receipts** protocol family: **14 locked core** signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events, plus a growing set of **agent-era** receipt types (action, quality, guard, grounding, trace, redaction) and the **compliance-bundle** family (`ar.compliance.v1`) — **21 families** in all.
+Specification documents for the **Anchored Receipts** protocol family — **21 families, 29 `claim_type` discriminators**: **14 locked core** signed, Merkle-anchored receipt formats for provenance, consent, retention, lineage, and compliance events, plus six **agent-era** receipt types (action, quality, guard, grounding, trace, redaction) and the **compliance-bundle** family (`ar.compliance.v1`). The authoritative count is the [registry](registry.md).
 
 **Spec licence:** CC0 1.0 Universal (public domain). Use it, fork it, embed it.
 **Reference implementations:** Apache 2.0, under [`dekimuhq`](https://github.com/dekimuhq) on GitHub.
@@ -36,7 +36,7 @@ Receipt formats for autonomous-agent and AI-pipeline events. They share the same
 | AQR | `ar.quality.v1` | Anchored Quality Receipts | [Full spec](quality/v1.md) |
 | AGR | `ar.guard.v1` | Anchored Guard Verdicts | [Full spec](guard/v1.md) |
 | AGrR | `ar.grounding.v1` | Anchored Grounding Receipts | [Full spec](grounding/v1.md) |
-| AgTR | `ar.trace.v1` / `ar.trace.v2` | Anchored Agent-Trace Receipts | [Full spec](trace/v1.md) |
+| AgTR | `ar.trace.v1` / `ar.trace.v2` | Anchored Agent-Trace Receipts | [v1 flat](trace/v1.md) · [v2 span tree](trace/v2.md) |
 | APIIR | `ar.redaction.v1` | Anchored PII-Redaction Receipts | [Full spec](redaction/v1.md) |
 
 ### Compliance-bundle family (1)
