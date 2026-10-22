@@ -2,7 +2,7 @@
 
 **Status:** **v1 — wire shapes FROZEN** as of 2026-10-19 (the day this specification went public). New fields are additive and OPTIONAL; a breaking change needs a `.v2` kind.
 **Spec licence:** CC0 1.0 Universal (public domain).
-**Reference implementation:** private for now. Everything an independent verifier needs is in this document plus Ed25519, SHA-256, and an RFC 8785 canonicaliser. The reference implementation was used to generate and verify every example in [`examples/`](examples/).
+**Reference implementation:** [`dekimuhq/forget`](https://github.com/dekimuhq/forget) (Apache-2.0). Everything an independent verifier needs is in this document plus Ed25519, SHA-256, and an RFC 8785 canonicaliser. The reference implementation was used to generate and verify every example in [`examples/`](examples/).
 **Brand:** "Dekimu Proof of Forgetting" is the brand mark. The wire kinds, the phrase "Proof of Forgetting", and "forget-receipt-compatible" are unclaimed and free for downstream use.
 **Wire kinds:** `forget.roster.v1` · `forget.destruction.v1` · `forget.model-disposition.v1`.
 
