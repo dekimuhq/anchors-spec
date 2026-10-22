@@ -12,6 +12,6 @@ Wire kinds: `forget.roster.v1` · `forget.destruction.v1` · `forget.model-dispo
 ## Status
 
 Spec: v1, wire shapes frozen 2026-10-19.
-Reference implementation: private for now; first issuer is Dekimu Hub.
+Reference implementation: [`dekimuhq/forget`](https://github.com/dekimuhq/forget) (Apache-2.0) — `@dekimuhq/forget-roster`, `@dekimuhq/forget-keystore`, `@dekimuhq/forget-receipt` on npm. First issuer is Dekimu Hub.
 
 Spec licence: CC0 1.0 Universal. This is a technical specification, not legal advice.
