@@ -8,7 +8,9 @@ The key words MUST, MUST NOT, SHOULD and MAY are used as in RFC 2119.
 
 This profile lets a legal or natural person who acts as a data subject's **authorised representative** publish a signed, verifiable record of that authority, naming **one controller** and a closed set of GDPR data-subject rights. A controller (or anyone acting for it) can check the record without contacting the issuer.
 
-Grounding stated by the profile: a national civil-law mandate or power of attorney granted by the data subject, together with GDPR Art. 12(2) (the controller facilitates the exercise of rights), Art. 12(6) (the controller may ask for information to confirm identity) and Recital 59 (requests made on the subject's behalf).
+Grounding stated by the profile: a mandate or power of attorney granted by the data subject under the applicable national law (some Member States say so expressly, e.g. Spain's LOPDGDD art. 12(1): rights under GDPR Arts 15–22 may be exercised directly or through a legal or voluntary representative), read with GDPR Art. 12(2) (the controller facilitates the exercise of rights), Art. 12(6) (the controller may request information to confirm the requester's identity where it has reasonable doubts) and EDPB Guidelines 01/2022 on the right of access, §3.4 (requests via third parties or proxies).
+
+In this document, an **issuer on the verifier's trust list** means an issuer whose verification key the verifier has chosen to trust. The profile does not define who belongs on that list.
 
 This profile is **not** `gdpr.art80.*`. GDPR Art. 80 concerns a mandate to a not-for-profit body with statutory objectives and is not the basis here. It is also not `gdpr.art28.processor`: the representative acts for the data subject, not as the controller's processor. And it is not an AI-agent profile: the representative is identified by a verification key and carries no AI `agent_descriptor`.
 
@@ -52,12 +54,12 @@ A revoke receipt shows that the issuer withdrew the authority from the time it w
 The result of verifying a grant under this profile is **advisory**. A successful result shows that:
 
 1. the receipt is well-formed and its signature and anchor verify;
-2. a trusted issuer signed it;
+2. an issuer on the verifier's own trust list signed it;
 3. it satisfies the invariants in section 2;
 4. no trusted revoke successor was found and it has not expired;
 5. it names a controller and a set of rights.
 
-It does **not** show who the requester is, that the data subject is the person who authorised the letter, or that the underlying mandate is valid under any particular national law. The controller keeps the Art. 12(6) judgement and MAY still ask for further information.
+It does **not** show who the requester is, that the data subject is the person who authorised the letter, or that the underlying mandate is valid under any particular national law. The controller keeps the judgement on the requester's identity (Art. 12(6)) and on the representative's authority, and MAY still ask for further information.
 
 A controller verifying a grant:
 
@@ -85,7 +87,7 @@ Placeholder values only. Envelope fields (`id`, `iss`, `iss_key`, `subject`, `ex
     "constraints": {
       "letter_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
       "representative": "Example Representative Ltd",
-      "mandate_basis": "National civil-law mandate / power of attorney (governing law: the data subject's country of habitual residence); GDPR Art. 12(2) and 12(6), Recital 59; rights under Art. 17 and Art. 21. Not GDPR Art. 80."
+      "mandate_basis": "National civil-law mandate / power of attorney (governing law: <as stated in the letter of authority>); GDPR Art. 12(2) and 12(6); rights under Art. 17 and Art. 21. Not GDPR Art. 80."
     }
   },
   "delegable": false,
