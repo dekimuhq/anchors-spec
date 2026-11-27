@@ -101,7 +101,7 @@ Single-receipt verification gains the rules above. A stateless verifier cannot c
 
 ## Options considered for where this lives
 
-1. **Additive optional field on `ar.action.v1` (this draft).** Precedent: `delegation_chain` and `agent_id` were added after the freeze under §7. The field sits next to the effect it describes, so a verifier of the action sees it without fetching a second receipt. Cost: amends a frozen public spec; the honesty boundary lives in a new §4.8 rather than a family of its own.
+1. **Additive optional field on `ar.action.v1` (this draft).** Precedent: `delegation_chain` and `agent_id` were added after the freeze under §7. The field sits next to the effect it describes, so a verifier of the action sees it without fetching a second receipt. Cost: amends a frozen public spec; the honesty boundary lives in a new §4.9 rather than a family of its own.
 2. **Sibling receipt (AGR `guard.flow` profile or a new family) chained to the action with `prev`.** AGR already says `prev` MAY chain a screening verdict to a downstream action receipt (`guard/v1.md` §2.1), and AScR was built as a new family "so that its honesty boundary is stated in its own text and no frozen public spec is amended" (`screening/v1.md` §1.1). Cost: two receipts per action, and the link is bookkeeping only.
 3. **`ar.trace.v2` span attributes.** Rejected for the summary: trace is per-run provenance and DISTINCT from AActR by design; good home for per-span detail only.
 4. **Extend `caveats_consumed`.** Rejected: caveats bound authority and are rejected without `credential_id`; data provenance is not authority and applies to mandate-less automation.
@@ -130,7 +130,7 @@ New directory `conformance/action/` (none exists for action today). valid: pre-c
 
 ## Implementation Notes
 
-Rollout if accepted: (1) editorial drift fix + spec §4.8 + vectors; (2) `action-profiles` body type and `verifyActionBody` rules; (3) `mintActionV2` optional input; (4) agent-taint `collectLabels` / `normalizePolicy`; (5) Hub dispatch passes the result through; (6) `verify.dekimu.com` rendering. Only (1)–(3) are public-spec work.
+Rollout if accepted: (1) editorial drift fix + spec §4.9 + vectors; (2) `action-profiles` body type and `verifyActionBody` rules; (3) `mintActionV2` optional input; (4) agent-taint `collectLabels` / `normalizePolicy`; (5) Hub dispatch passes the result through; (6) `verify.dekimu.com` rendering. Only (1)–(3) are public-spec work.
 
 ## Review log
 
